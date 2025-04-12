@@ -1,0 +1,62 @@
+﻿@page "/"
+@using Markdig
+@using Markdig.Renderers.MudBlazor
+@using Markdig.Renderers.MudBlazor.Components
+@using Markdig.Renderers.RazorComponent
+@using Microsoft.AspNetCore.Components.Rendering
+
+<PageTitle>Home</PageTitle>
+
+<MudGrid>
+    <MudItem xs="6">
+        <MudTextField Label="Markdown" @bind-Value="@markdownText" AutoGrow AutoFocus Immediate />
+        <MudCheckBox Label="Use MudMarkdown" @bind-Value="@useMudMarkdown"/>
+    </MudItem>
+    <MudItem xs="6">
+        <MudField Label="Preview">
+            @if(useMudMarkdown)
+            {
+                <MudMarkdown Value="@markdownText" />
+            }
+            else
+            {
+                @GetMarkdownContent()
+            }
+        </MudField>
+    </MudItem>
+</MudGrid>
+
+@code{
+    bool useMudMarkdown = true;
+    string markdownText = @"
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+
+Paragraph
+
+*Emphasis*
+**Emphasis**
+
+> BlockQuote
+
+This is a $math block$
+
+ a     | b
+-------|-------
+ 0     | 1
+ 2     | 3
+
+";
+    RenderFragment GetMarkdownContent(){
+
+
+        var pipelineBuilder = new MarkdownPipelineBuilder().UseAdvancedExtensions();
+        var pipeline = pipelineBuilder.Build();
+        var markdownDocument = Markdown.Parse(markdownText, pipeline);
+        return markdownDocument.ToRenderFragment(pipeline);
+    }
+}

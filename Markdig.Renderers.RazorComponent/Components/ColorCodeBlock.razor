@@ -1,0 +1,62 @@
+﻿@using ColorCode
+
+@if (OutputAttributesOnPre)
+{
+    <pre @attributes="@Attributes">
+        <code>
+            @if(Language is not null)
+            {
+                @markupContent
+            }
+            else
+            {
+                @SourceCode
+            }
+        </code>
+    </pre>
+}
+else
+{
+    <pre>
+        <code @attributes="@Attributes">
+            @if (Language is not null)
+            {
+                @markupContent
+            }
+            else
+            {
+                @SourceCode
+            }
+        </code>
+    </pre>
+}
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required string SourceCode { get; set; }
+    [Parameter]
+    public ILanguage? Language { get; set; }
+    [Parameter]
+    public ColorCode.Styling.StyleDictionary? CodeStyle { get; set; }
+    [Parameter]
+    public bool OutputAttributesOnPre { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object?> Attributes { get; set; } = [];
+
+    MarkupString markupContent = new("");
+    protected override void OnParametersSet()
+    {
+        if(Language is not null)
+        {
+            HtmlFormatter formatter = new(CodeStyle);
+            var html = formatter.GetHtmlString(SourceCode, Language);
+            markupContent = new(html);
+        }
+        else
+        {
+            markupContent = new("");
+        }
+        
+    }
+}

@@ -1,0 +1,23 @@
+﻿@using Markdig.Renderers.RazorComponent
+@inherits MudComponentBase
+
+<div class="@Class" style="@Style" @attributes="@UserAttributes">
+    @content
+</div>
+
+@code {
+    static MarkdownPipeline DefaultPipeline { get; } = new MarkdownPipelineBuilder().UseAdvancedExtensions().UseMudBlazor().Build();
+
+    [Parameter, EditorRequired]
+    public required string Value { get; set; }
+
+    [Parameter]
+    public MarkdownPipeline Pipeline { get; set; } = DefaultPipeline;
+
+    RenderFragment? content;
+    protected override void OnParametersSet()
+    {
+        var document = Markdown.Parse(Value, Pipeline);
+        content = document.ToRenderFragment(Pipeline);
+    }
+}
