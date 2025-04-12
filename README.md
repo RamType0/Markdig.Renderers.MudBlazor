@@ -1,3 +1,5 @@
+[![Version](https://img.shields.io/nuget/v/RamType0.Markdig.Renderers.MudBlazor?logo=nuget&style=flat-square)](https://www.nuget.org/packages/RamType0.Markdig.Renderers.MudBlazor/)
+[![Nuget downloads](https://img.shields.io/nuget/dt/RamType0.Markdig.Renderers.MudBlazor?label=nuget%20downloads&logo=nuget&style=flat-square)](https://www.nuget.org/packages/RamType0.Markdig.Renderers.MudBlazor/)  
 # Markdown renderers for Blazor and [MudBlazor](https://github.com/MudBlazor/MudBlazor)
 
 ## Getting started
