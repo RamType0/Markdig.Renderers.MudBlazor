@@ -11,7 +11,7 @@ public class MathBlockRenderer : RazorComponentObjectRenderer<MathBlock>
         DisplayMode = true,
         ThrowOnError = false,
     };
-    public KatexOptions KatexOptions { get; } = DefaultKatexOptions;
+    public KatexOptions KatexOptions { get; set; } = DefaultKatexOptions;
     protected override void Write(RazorComponentRenderer renderer, MathBlock obj)
     {
         var builder = renderer.Builder;

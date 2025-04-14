@@ -9,7 +9,7 @@ public class MathInlineRenderer : RazorComponentObjectRenderer<MathInline>
     {
         ThrowOnError = false,
     };
-    public KatexOptions KatexOptions { get; } = DefaultKatexOptions;
+    public KatexOptions KatexOptions { get; set; } = DefaultKatexOptions;
     protected override void Write(RazorComponentRenderer renderer, MathInline obj)
     {
         var builder = renderer.Builder;
