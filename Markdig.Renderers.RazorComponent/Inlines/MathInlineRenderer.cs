@@ -5,6 +5,11 @@ namespace Markdig.Renderers.RazorComponent.Inlines;
 
 public class MathInlineRenderer : RazorComponentObjectRenderer<MathInline>
 {
+    public static KatexOptions DefaultKatexOptions { get; } = new()
+    {
+        ThrowOnError = false,
+    };
+    public KatexOptions KatexOptions { get; } = DefaultKatexOptions;
     protected override void Write(RazorComponentRenderer renderer, MathInline obj)
     {
         var builder = renderer.Builder;
@@ -12,9 +17,10 @@ public class MathInlineRenderer : RazorComponentObjectRenderer<MathInline>
 
         builder.OpenRegion(sequence);
         {
-            builder.OpenComponent<KatexMathInline>(0);
+            builder.OpenComponent<KatexView>(0);
             {
-                builder.AddAttribute(1, nameof(KatexMathInline.MathInline), obj);
+                builder.AddAttribute(1, nameof(KatexView.TexExpression), obj.Content.ToString());
+                builder.AddAttribute(2, nameof(KatexView.Options), KatexOptions);
             }
             builder.CloseComponent();
         }

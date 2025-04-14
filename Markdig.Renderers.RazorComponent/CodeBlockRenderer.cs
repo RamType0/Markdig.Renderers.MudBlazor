@@ -16,7 +16,7 @@ public class CodeBlockRenderer : RazorComponentObjectRenderer<CodeBlock>
         var sequence = 0;
         builder.OpenRegion(sequence);
         {
-            var sourceCode = GetSourceCode(codeBlock);
+            var sourceCode = RazorComponentRenderer.GetLeafRawLines(codeBlock);
             var languageId = (codeBlock as FencedCodeBlock)?.Info;
             var language = string.IsNullOrEmpty(languageId) ? null : Languages.FindById(languageId);
             builder.OpenComponent<ColorCodeBlock>(0);
@@ -30,17 +30,5 @@ public class CodeBlockRenderer : RazorComponentObjectRenderer<CodeBlock>
             builder.CloseComponent();
         }
         builder.CloseRegion();
-    }
-    static string GetSourceCode(CodeBlock codeBlock)
-    {
-        var lines = codeBlock.Lines.Lines;
-        var lineCount = lines?.Length ?? 0;
-        DefaultInterpolatedStringHandler sourceCodeBuilder = new(lineCount, lineCount);
-        foreach (var line in lines ?? [])
-        {
-            sourceCodeBuilder.AppendFormatted(line);
-            sourceCodeBuilder.AppendLiteral("\n");
-        }
-        return sourceCodeBuilder.ToStringAndClear();
     }
 }

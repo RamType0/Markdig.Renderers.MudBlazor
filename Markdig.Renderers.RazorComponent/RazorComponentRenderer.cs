@@ -3,6 +3,7 @@ using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using Microsoft.AspNetCore.Components.Rendering;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Markdig.Renderers.RazorComponent;
 public class RazorComponentRenderer : RendererBase
@@ -12,6 +13,7 @@ public class RazorComponentRenderer : RendererBase
         Builder = renderTreeBuilder;
 
         // Default block renderers
+        ObjectRenderers.Add(new MathBlockRenderer()); // This must be before CodeBlockRenderer
         ObjectRenderers.Add(new CodeBlockRenderer());
         ObjectRenderers.Add(new ListRenderer());
         ObjectRenderers.Add(new HeadingRenderer());
@@ -72,5 +74,17 @@ public class RazorComponentRenderer : RendererBase
 
         }
         Builder.CloseRegion();
+    }
+    public static string GetLeafRawLines(LeafBlock leafBlock)
+    {
+        var lines = leafBlock.Lines.Lines;
+        var lineCount = lines?.Length ?? 0;
+        DefaultInterpolatedStringHandler sourceCodeBuilder = new(lineCount, lineCount);
+        foreach (var line in lines ?? [])
+        {
+            sourceCodeBuilder.AppendFormatted(line);
+            sourceCodeBuilder.AppendLiteral("\n");
+        }
+        return sourceCodeBuilder.ToStringAndClear();
     }
 }
