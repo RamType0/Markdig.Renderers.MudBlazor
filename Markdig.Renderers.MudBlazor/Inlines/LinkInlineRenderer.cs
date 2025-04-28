@@ -27,10 +27,8 @@ public class LinkInlineRenderer : RazorComponentObjectRenderer<LinkInline>
                     {
                         builder.AddAttribute(1, nameof(MudImage.Src), url);
                         builder.AddAttributesToMudComponent(2, link.TryGetAttributes());
-                        if (RazorComponent.Inlines.LinkInlineRenderer.GetAlt(link) is { } alt)
-                        {
-                            builder.AddAttribute(3, nameof(MudImage.Alt), alt);
-                        }
+
+                        builder.AddAttribute(3, nameof(MudImage.Alt), RazorComponent.Inlines.LinkInlineRenderer.GetAlt(link));
                         builder.AddAttribute(4, "title", link.Title);
                     }
                     builder.CloseComponent();
