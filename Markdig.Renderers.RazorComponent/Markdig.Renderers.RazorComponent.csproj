@@ -13,7 +13,7 @@
 	<Description>Markdown renderers for Blazor.</Description>
     <PackageTags>aspnetcore, components, Blazor, Markdown, CommonMark, md</PackageTags>
     <Copyright>© RamType0</Copyright>
-	<VersionPrefix>0.1.0</VersionPrefix>  
+	<VersionPrefix>0.2.0</VersionPrefix>  
 	<VersionSuffix>alpha</VersionSuffix>
   </PropertyGroup>
 
