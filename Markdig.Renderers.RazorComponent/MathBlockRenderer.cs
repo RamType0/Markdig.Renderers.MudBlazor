@@ -1,6 +1,7 @@
 ﻿using Markdig.Extensions.Mathematics;
 using Markdig.Renderers.Html;
 using Markdig.Renderers.RazorComponent.Components;
+using Markdig.Renderers.RazorComponent.Katex;
 
 namespace Markdig.Renderers.RazorComponent;
 

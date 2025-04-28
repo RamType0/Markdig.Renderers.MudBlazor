@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Markdig.Renderers.RazorComponent.Components;
+namespace Markdig.Renderers.RazorComponent.Katex;
 /// <summary>
 /// The options for <c>katex.render</c> and <c>katex.renderToString</c>. 
 /// </summary>
