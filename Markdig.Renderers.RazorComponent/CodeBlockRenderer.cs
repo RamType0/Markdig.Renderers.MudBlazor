@@ -8,6 +8,7 @@ namespace Markdig.Renderers.RazorComponent;
 
 public class CodeBlockRenderer : RazorComponentObjectRenderer<CodeBlock>
 {
+    public bool UseKroki { get; set; }
     public bool OutputAttributesOnPre { get; set; }
     public ColorCode.Styling.StyleDictionary? CodeStyle { get; set; }
     protected override void Write(RazorComponentRenderer renderer, CodeBlock codeBlock)
@@ -18,13 +19,14 @@ public class CodeBlockRenderer : RazorComponentObjectRenderer<CodeBlock>
         {
             var sourceCode = RazorComponentRenderer.GetLeafRawLines(codeBlock);
             var languageId = (codeBlock as FencedCodeBlock)?.Info;
-            if(languageId is "mermaid")
+            if(UseKroki && languageId is "mermaid" or "nomnoml")
             {
                 builder.OpenRegion(0);
                 {
-                    builder.OpenComponent<MermaidView>(0);
+                    builder.OpenComponent<KrokiView>(0);
                     {
-                        builder.AddAttribute(1, nameof(MermaidView.GraphDefinition), sourceCode);
+                        builder.AddAttribute(1, nameof(KrokiView.DiagramType), languageId);
+                        builder.AddAttribute(2, nameof(KrokiView.DiagramSource), sourceCode);
                     }
                     builder.CloseComponent();
                 }

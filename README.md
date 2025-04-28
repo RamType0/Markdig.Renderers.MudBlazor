@@ -17,6 +17,25 @@ Also, you need to add this to bottom of `<body>` element.
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
 ```
 
+### Kroki (mermaid, nomnoml) intefration
+If you want to render mermaid and nomnoml diagrams, you need to add `KrokiClient` to services.
+
+```C#
+
+builder.Services.AddKrokiClient();
+
+```
+
+Also, you need to call `UseKroki` on `MarkdownPipelineBuilder`.
+
+```C#
+
+using Markdig.Renderers.RazorComponent.Kroki;
+
+pipelineBuilder.UseKroki();
+
+```
+
 ### MudBlazor
 
 This library is using [CSS isolation](https://learn.microsoft.com/aspnet/core/blazor/components/css-isolation).
@@ -125,7 +144,7 @@ public class MudBlazorExtension : IMarkdownExtension
 }
 ```
 
-## Robust `MathInline` and `CodeBlock` rendering
+## Robust rendering
 
 There is already existing well-known Markdown integration for MudBlazor, [MudBlazor.Markdown](https://github.com/MyNihongo/MudBlazor.Markdown).
 
@@ -141,3 +160,8 @@ Unlike MudBlazor.Markdown, this library is using KaTeX instead of MathJax and ne
 
 Unlike MudBlazor.Markdown, this library is using ColorCode instead of highlight.js and never depends on direct DOM manipulation.
 
+### Mermaid diagrams
+
+mermaid.js is very difficult to integrate to Blazor because it does terrible DOM manipulation.
+
+This library is using [Kroki](https://github.com/yuzutech/kroki), and does not depend on mermaid.js directly.
