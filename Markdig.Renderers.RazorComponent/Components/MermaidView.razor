@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.WebUtilities
+@using System.IO.Compression
+@using System.Text
+@using System.Diagnostics
+@using System.Buffers
+
+<img src="@GetKrokiUrl()" />
+
+
+@code {
+    [Parameter, EditorRequired]
+    public required string GraphDefinition { get; set; }
+
+
+    string GetKrokiUrl()
+    {
+        using MemoryStream memoryStream = new();
+        var compressionLevel = CompressionLevel.Fastest;
+        memoryStream.WriteByte(0x78);
+        memoryStream.WriteByte(compressionLevel switch
+        {
+            CompressionLevel.NoCompression or CompressionLevel.Fastest => 0x01,
+            CompressionLevel.Optimal => 0xDA,
+            _ => 0x9C,
+        });
+
+
+        var maxUtf8Size = Encoding.UTF8.GetMaxByteCount(GraphDefinition.Length);
+        var dataBuffer = ArrayPool<byte>.Shared.Rent(maxUtf8Size);
+        var utf8Size = Encoding.UTF8.GetBytes(GraphDefinition, dataBuffer);
+        var data = dataBuffer.AsSpan()[..utf8Size];
+        {
+            {
+                using DeflateStream deflateStream = new(memoryStream, compressionLevel, true);
+                deflateStream.Write(data);
+            }
+            // compute Adler-32:
+            uint a1 = 1, a2 = 0;
+            foreach (var b in data)
+            {
+                a1 = (a1 + b) % 65521;
+                a2 = (a2 + a1) % 65521;
+            }
+            memoryStream.WriteByte((byte)(a2 >> 8));
+            memoryStream.WriteByte((byte)a2);
+            memoryStream.WriteByte((byte)(a1 >> 8));
+            memoryStream.WriteByte((byte)a1);
+        }
+        ArrayPool<byte>.Shared.Return(dataBuffer);
+
+        if (!memoryStream.TryGetBuffer(out ArraySegment<byte> buffer))
+        {
+            throw new UnreachableException();
+        }
+
+        
+        var krokiUrl = $"https://kroki.io/mermaid/svg/{WebEncoders.Base64UrlEncode(buffer)}";
+        return krokiUrl;
+    }
+}

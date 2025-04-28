@@ -18,16 +18,36 @@ public class CodeBlockRenderer : RazorComponentObjectRenderer<CodeBlock>
         {
             var sourceCode = RazorComponentRenderer.GetLeafRawLines(codeBlock);
             var languageId = (codeBlock as FencedCodeBlock)?.Info;
-            var language = string.IsNullOrEmpty(languageId) ? null : Languages.FindById(languageId);
-            builder.OpenComponent<ColorCodeBlock>(0);
+            if(languageId is "mermaid")
             {
-                builder.AddAttributes(1, codeBlock.TryGetAttributes());
-                builder.AddAttribute(2, nameof(ColorCodeBlock.SourceCode), sourceCode);
-                builder.AddAttribute(3, nameof(ColorCodeBlock.Language), language);
-                builder.AddAttribute(4, nameof(ColorCodeBlock.CodeStyle), CodeStyle);
-                builder.AddAttribute(5, nameof(ColorCodeBlock.OutputAttributesOnPre), OutputAttributesOnPre);
+                builder.OpenRegion(0);
+                {
+                    builder.OpenComponent<MermaidView>(0);
+                    {
+                        builder.AddAttribute(1, nameof(MermaidView.GraphDefinition), sourceCode);
+                    }
+                    builder.CloseComponent();
+                }
+                builder.CloseRegion();
             }
-            builder.CloseComponent();
+            else
+            {
+                builder.OpenRegion(1);
+                {
+                    var language = string.IsNullOrEmpty(languageId) ? null : Languages.FindById(languageId);
+                    builder.OpenComponent<ColorCodeBlock>(0);
+                    {
+                        builder.AddAttributes(1, codeBlock.TryGetAttributes());
+                        builder.AddAttribute(2, nameof(ColorCodeBlock.SourceCode), sourceCode);
+                        builder.AddAttribute(3, nameof(ColorCodeBlock.Language), language);
+                        builder.AddAttribute(4, nameof(ColorCodeBlock.CodeStyle), CodeStyle);
+                        builder.AddAttribute(5, nameof(ColorCodeBlock.OutputAttributesOnPre), OutputAttributesOnPre);
+                    }
+                    builder.CloseComponent();
+                }
+                builder.CloseRegion();
+            }
+            
         }
         builder.CloseRegion();
     }
