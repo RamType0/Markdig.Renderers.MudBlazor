@@ -1,4 +1,5 @@
 ﻿using ColorCode;
+using Kroki;
 using Markdig.Renderers.Html;
 using Markdig.Renderers.RazorComponent.Components;
 using Markdig.Syntax;
@@ -19,7 +20,7 @@ public class CodeBlockRenderer : RazorComponentObjectRenderer<CodeBlock>
         {
             var sourceCode = RazorComponentRenderer.GetLeafRawLines(codeBlock);
             var languageId = (codeBlock as FencedCodeBlock)?.Info;
-            if(UseKroki && languageId is "mermaid" or "nomnoml")
+            if(UseKroki && languageId is not null && DiagramTypes.All.Contains(languageId))
             {
                 builder.OpenRegion(0);
                 {
