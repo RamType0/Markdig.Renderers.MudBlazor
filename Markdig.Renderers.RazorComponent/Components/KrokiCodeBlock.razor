@@ -1,0 +1,66 @@
+﻿@using Markdig.Syntax
+@using global::Kroki
+@using System.IO.Compression
+@inject KrokiClient KrokiClient
+
+@if (overrideContent is not null)
+{
+    @overrideContent(CodeBlock)
+}
+else
+{
+    <img src="@imageSrc" diagram-type="@diagramType" alt="@diagramSource" @attributes="@Attributes" />
+}
+
+@code {
+
+    [CascadingParameter]
+    CascadingKrokiCodeBlockOptions? Options { get; set; }
+
+    [Parameter, EditorRequired]
+    public required CodeBlock CodeBlock { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object?> Attributes { get; set; } = [];
+
+    string diagramType = "";
+    string diagramSource = "";
+
+    string imageSrc = "";
+    RenderFragment<CodeBlock>? overrideContent;
+
+
+    bool TryGetOpenCodeBlockContent(out RenderFragment<CodeBlock>? openCodeBlockContent)
+    {
+        if (Options?.OpenCodeBlockContent is { } content)
+        {
+            openCodeBlockContent = content;
+            return true;
+        }
+        openCodeBlockContent = null;
+        return false;
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (CodeBlock.IsOpen && Options?.OpenCodeBlockContent is { } openCodeBlockContent)
+        {
+            overrideContent = openCodeBlockContent;
+            return;
+        }
+        else
+        {
+            overrideContent = null;
+
+            diagramType = (CodeBlock as FencedCodeBlock)?.Info ?? throw new ArgumentException();
+            diagramSource = RazorComponentRenderer.GetLeafRawLines(CodeBlock);
+            imageSrc = KrokiClient.CreateGetUri(new()
+                {
+                    DiagramType = diagramType,
+                    OutputFormat = FileFormat.Svg,
+                    DiagramSource = diagramSource
+                }, CompressionLevel.Optimal).AbsoluteUri;
+        }
+        
+    }
+}

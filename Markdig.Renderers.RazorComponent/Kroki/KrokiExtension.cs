@@ -14,6 +14,6 @@ public class KrokiExtension : IMarkdownExtension
             return;
         }
         var codeBlockRenderer = renderer.ObjectRenderers.FindExact<CodeBlockRenderer>() ?? throw new InvalidOperationException($"Could not find {nameof(CodeBlockRenderer)}.");
-        codeBlockRenderer.UseKroki = true;
+        codeBlockRenderer.ChildRenderers.Insert(0, new KrokiCodeBlockRenderer());
     }
 }

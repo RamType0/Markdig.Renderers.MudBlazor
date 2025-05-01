@@ -3,6 +3,7 @@
 @using Markdig.Renderers.MudBlazor
 @using Markdig.Renderers.MudBlazor.Components
 @using Markdig.Renderers.RazorComponent
+@using Markdig.Renderers.RazorComponent.Components
 @using Markdig.Renderers.RazorComponent.Kroki
 @using Microsoft.AspNetCore.Components.Rendering
 
@@ -16,7 +17,14 @@
     </MudItem>
     <MudItem xs="6">
         <MudField Label="Preview">
-            <MudMarkdown Value="@markdownText" Pipeline="@GetPipeline()" />
+            <CascadingKrokiCodeBlockOptions>
+                <OpenCodeBlockContent>
+                    <MudProgressCircular Indeterminate />
+                </OpenCodeBlockContent>
+                <ChildContent>
+                    <MudMarkdown Value="@markdownText" Pipeline="@GetPipeline()" />
+                </ChildContent>
+            </CascadingKrokiCodeBlockOptions>
         </MudField>
     </MudItem>
 </MudGrid>

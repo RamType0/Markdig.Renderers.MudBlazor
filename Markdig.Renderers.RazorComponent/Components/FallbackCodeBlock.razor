@@ -1,13 +1,11 @@
 ﻿@using ColorCode
 @using Markdig.Syntax
-@using global::ColorCode
-@using global::ColorCode.Styling
 
 @if (OutputAttributesOnPre)
 {
     <pre @attributes="@Attributes">
         <code>
-            @markupContent
+            @SourceCode
         </code>
     </pre>
 }
@@ -15,7 +13,7 @@ else
 {
     <pre>
         <code @attributes="@Attributes">
-            @markupContent
+            @SourceCode
         </code>
     </pre>
 }
@@ -24,19 +22,7 @@ else
     [Parameter, EditorRequired]
     public required string SourceCode { get; set; }
     [Parameter]
-    public required ILanguage Language { get; set; }
-    [Parameter]
-    public StyleDictionary? CodeStyle { get; set; }
-    [Parameter]
     public bool OutputAttributesOnPre { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object?> Attributes { get; set; } = [];
-
-    MarkupString markupContent = new("");
-    protected override void OnParametersSet()
-    {
-        HtmlFormatter formatter = new(CodeStyle);
-        var html = formatter.GetHtmlString(SourceCode, Language);
-        markupContent = new(html);
-    }
 }

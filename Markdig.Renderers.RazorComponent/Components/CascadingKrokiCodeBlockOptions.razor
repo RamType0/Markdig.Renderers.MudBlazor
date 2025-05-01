@@ -1,0 +1,9 @@
+﻿@using Markdig.Syntax
+<CascadingValue Value="@this" IsFixed ChildContent="@ChildContent"/>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment<CodeBlock>? OpenCodeBlockContent { get; set; }
+}
