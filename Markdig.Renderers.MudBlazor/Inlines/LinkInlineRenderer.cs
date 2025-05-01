@@ -15,8 +15,7 @@ public class LinkInlineRenderer : RazorComponentObjectRenderer<LinkInline>
     protected override void Write(RazorComponentRenderer renderer, LinkInline link)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             var url = link.GetDynamicUrl?.Invoke() ?? link.Url;
             if (link.IsImage)
@@ -25,11 +24,11 @@ public class LinkInlineRenderer : RazorComponentObjectRenderer<LinkInline>
                 {
                     builder.OpenComponent<MudImage>(0);
                     {
-                        builder.AddAttribute(1, nameof(MudImage.Src), url);
+                        builder.AddComponentParameter(1, nameof(MudImage.Src), url);
                         builder.AddAttributesToMudComponent(2, link.TryGetAttributes());
 
-                        builder.AddAttribute(3, nameof(MudImage.Alt), RazorComponent.Inlines.LinkInlineRenderer.GetAlt(link));
-                        builder.AddAttribute(4, "title", link.Title);
+                        builder.AddComponentParameter(3, nameof(MudImage.Alt), RazorComponent.Inlines.LinkInlineRenderer.GetAlt(link));
+                        builder.AddComponentParameter(4, "title", link.Title);
                     }
                     builder.CloseComponent();
                 }
@@ -41,22 +40,20 @@ public class LinkInlineRenderer : RazorComponentObjectRenderer<LinkInline>
                 {
                     builder.OpenComponent<MudLink>(0);
                     {
-                        builder.AddAttribute(1, nameof(MudLink.Href), url);
+                        builder.AddComponentParameter(1, nameof(MudLink.Href), url);
                         builder.AddAttributesToMudComponent(2, link.TryGetAttributes());
 
-                        builder.AddAttribute(3, "title", link.Title);
+                        builder.AddComponentParameter(3, "title", link.Title);
                         if (!string.IsNullOrWhiteSpace(Rel))
                         {
-                            builder.AddAttribute(4, "rel", Rel);
+                            builder.AddComponentParameter(4, "rel", Rel);
                         }
-                        builder.AddAttribute(5, nameof(MudLink.ChildContent), (RenderFragment)(builder =>
+                        builder.AddComponentParameter(5, nameof(MudLink.ChildContent), (RenderFragment)(builder =>
                         {
-                            var originalBuilder = renderer.Builder;
+                            using (renderer.UseBuilder(builder))
                             {
-                                renderer.Builder = builder;
                                 renderer.WriteChildren(0, link);
                             }
-                            renderer.Builder = originalBuilder;
                         }));
                     }
                     builder.CloseComponent();

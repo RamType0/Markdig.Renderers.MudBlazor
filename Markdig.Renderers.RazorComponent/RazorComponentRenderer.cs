@@ -1,6 +1,7 @@
 ﻿using Markdig.Renderers.RazorComponent.Inlines;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -40,8 +41,25 @@ public class RazorComponentRenderer : RendererBase
     public RenderTreeBuilder Builder { get; set; }
     public override object Render(MarkdownObject markdownObject)
     {
-        Write(markdownObject);
-        return Builder;
+        var builder = Builder;
+        builder.OpenRegion(0);
+        {
+            builder.OpenComponent<CascadingValue<RazorComponentRenderer>>(0);
+            {
+                builder.AddComponentParameter(1, nameof(CascadingValue<RazorComponentRenderer>.IsFixed), BoxedBool.True);
+                builder.AddComponentParameter(2, nameof(CascadingValue<RazorComponentRenderer>.Value), this);
+                builder.AddComponentParameter(3, nameof(CascadingValue<RazorComponentRenderer>.ChildContent), (RenderFragment)(builder =>
+                {
+                    using (UseBuilder(builder))
+                    {
+                        Write(markdownObject);
+                    }
+                }));
+            }
+            builder.CloseComponent();
+        }
+        builder.CloseRegion();
+        return builder;
     }
     [Obsolete($"Use overload with sequence instead", true)]
     public new void WriteChildren(ContainerInline containerInline) => throw new UnreachableException();
@@ -49,20 +67,23 @@ public class RazorComponentRenderer : RendererBase
     public new void WriteChildren(ContainerBlock containerBlock) => throw new UnreachableException();
     public void WriteChildren(int sequence, ContainerInline containerInline)
     {
-        Builder.OpenRegion(sequence);
+        var builder = Builder;
+        builder.OpenRegion(sequence);
         base.WriteChildren(containerInline);
-        Builder.CloseRegion();
+        builder.CloseRegion();
     }
     public void WriteChildren(int sequence, ContainerBlock containerBlock)
     {
-        Builder.OpenRegion(sequence);
+        var builder = Builder;
+        builder.OpenRegion(sequence);
         base.WriteChildren(containerBlock);
-        Builder.CloseRegion();
+        builder.CloseRegion();
     }
 
     public void WriteLeafInline(int sequence, LeafBlock leafBlock)
     {
-        Builder.OpenRegion(sequence);
+        var builder = Builder;
+        builder.OpenRegion(sequence);
         {
             Inline? inline = leafBlock.Inline;
 
@@ -73,7 +94,7 @@ public class RazorComponentRenderer : RendererBase
             }
 
         }
-        Builder.CloseRegion();
+        builder.CloseRegion();
     }
     public static string GetLeafRawLines(LeafBlock leafBlock)
     {
@@ -86,5 +107,21 @@ public class RazorComponentRenderer : RendererBase
             sourceCodeBuilder.AppendLiteral("\n");
         }
         return sourceCodeBuilder.ToStringAndClear();
+    }
+    public BuilderOverrideScope UseBuilder(RenderTreeBuilder overrideBuilder) => new(this, overrideBuilder);
+    public readonly struct BuilderOverrideScope : IDisposable
+    {
+        readonly RazorComponentRenderer renderer;
+        readonly RenderTreeBuilder originalBuilder;
+        public BuilderOverrideScope(RazorComponentRenderer renderer, RenderTreeBuilder overrideBuilder)
+        {
+            this.renderer = renderer;
+            originalBuilder = renderer.Builder;
+            renderer.Builder = overrideBuilder;
+        }
+        public void Dispose()
+        {
+            renderer.Builder = originalBuilder;
+        }
     }
 }

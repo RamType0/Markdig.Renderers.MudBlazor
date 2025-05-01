@@ -11,22 +11,19 @@ public class HeadingRenderer : RazorComponentObjectRenderer<HeadingBlock>
     protected override void Write(RazorComponentRenderer renderer, HeadingBlock obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             builder.OpenComponent<MudText>(0);
             {
                 builder.AddAttributesToMudComponent(1, obj.TryGetAttributes());
-                builder.AddAttribute(2, nameof(MudLink.ChildContent), (RenderFragment)(builder =>
+                builder.AddComponentParameter(2, nameof(MudLink.ChildContent), (RenderFragment)(builder =>
                 {
-                    var originalBuilder = renderer.Builder;
+                    using(renderer.UseBuilder(builder))
                     {
-                        renderer.Builder = builder;
                         renderer.WriteLeafInline(0, obj);
                     }
-                    renderer.Builder = originalBuilder;
                 }));
-                builder.AddAttribute(3, nameof(MudText.Typo), GetHeadingTypo(obj));
+                builder.AddComponentParameter(3, nameof(MudText.Typo), GetHeadingTypo(obj));
             }
 
             builder.CloseComponent();

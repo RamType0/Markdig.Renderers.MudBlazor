@@ -7,8 +7,7 @@ public class LineBreakInlineRenderer : RazorComponentObjectRenderer<LineBreakInl
     protected override void Write(RazorComponentRenderer renderer, LineBreakInline obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenElement(sequence, "br");
+        builder.OpenElement(0, "br");
         {
 
         }

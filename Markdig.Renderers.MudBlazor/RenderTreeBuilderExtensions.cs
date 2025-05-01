@@ -15,19 +15,19 @@ public static class RenderTreeBuilderExtensions
             }
             if (attributes.Id is { } id)
             {
-                builder.AddAttribute(sequence, "id", id);
+                builder.AddComponentParameter(sequence, "id", id);
             }
             if (attributes.Classes is { Count: > 0 } cssClasses)
             {
                 var cssClassTextSource = classFilter is null ? cssClasses : cssClasses.Select(classFilter);
                 var cssClassText = string.Join(' ', cssClassTextSource);
-                builder.AddAttribute(sequence, nameof(MudComponentBase.Class), cssClassText);
+                builder.AddComponentParameter(sequence, nameof(MudComponentBase.Class), cssClassText);
             }
             if (attributes.Properties is { Count: > 0 } properties)
             {
                 foreach (var property in properties)
                 {
-                    builder.AddAttribute(sequence, property.Key, property.Value);
+                    builder.AddComponentParameter(sequence, property.Key, property.Value);
                 }
             }
         }

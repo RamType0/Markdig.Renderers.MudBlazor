@@ -21,16 +21,15 @@ public class CodeBlockRenderer : RazorComponentObjectRenderer<CodeBlock>
         }
 
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             var sourceCode = RazorComponentRenderer.GetLeafRawLines(codeBlock);
 
             builder.OpenComponent<FallbackCodeBlock>(0);
             {
                 builder.AddAttributes(1, codeBlock.TryGetAttributes());
-                builder.AddAttribute(2, nameof(FallbackCodeBlock.SourceCode), sourceCode);
-                builder.AddAttribute(5, nameof(FallbackCodeBlock.OutputAttributesOnPre), OutputAttributesOnPre);
+                builder.AddComponentParameter(2, nameof(FallbackCodeBlock.SourceCode), sourceCode);
+                builder.AddComponentParameter(5, nameof(FallbackCodeBlock.OutputAttributesOnPre), OutputAttributesOnPre);
             }
             builder.CloseComponent();
         }

@@ -8,13 +8,19 @@ public class QuoteBlockRenderer : RazorComponentObjectRenderer<QuoteBlock>
     protected override void Write(RazorComponentRenderer renderer, QuoteBlock quoteBlock)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             builder.OpenElement(0, "blockquote");
             {
                 builder.AddAttributes(1, quoteBlock.TryGetAttributes());
-                renderer.WriteChildren(2, quoteBlock);
+
+                builder.AddImplicitParagraph(2, true, false, builder =>
+                {
+                    using (renderer.UseBuilder(builder))
+                    {
+                        renderer.WriteChildren(0, quoteBlock);
+                    }
+                });
             }
             builder.CloseElement();
         }

@@ -8,8 +8,7 @@ public class CodeInlineRenderer : RazorComponentObjectRenderer<CodeInline>
     protected override void Write(RazorComponentRenderer renderer, CodeInline obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             builder.OpenElement(0, "code");
             {

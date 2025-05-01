@@ -13,8 +13,7 @@ public class EmphasisInlineRenderer : RazorComponentObjectRenderer<EmphasisInlin
     protected override void Write(RazorComponentRenderer renderer, EmphasisInline obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             var elementName = GetTag(obj);
             if (elementName is not null)

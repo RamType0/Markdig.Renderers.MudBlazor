@@ -7,8 +7,7 @@ public class DelimiterInlineRenderer : RazorComponentObjectRenderer<DelimiterInl
     protected override void Write(RazorComponentRenderer renderer, DelimiterInline obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             builder.AddContent(0, obj.ToLiteral());
             renderer.WriteChildren(1, obj);
