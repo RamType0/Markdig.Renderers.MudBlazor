@@ -8,10 +8,8 @@ public class HeadingRenderer : RazorComponentObjectRenderer<HeadingBlock>
     protected override void Write(RazorComponentRenderer renderer, HeadingBlock obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
-
             builder.OpenElement(0, GetHeadingTag(obj));
             {
                 builder.AddAttributes(1, obj.TryGetAttributes());

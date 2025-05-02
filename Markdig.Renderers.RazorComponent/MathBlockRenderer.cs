@@ -16,17 +16,16 @@ public class MathBlockRenderer : RazorComponentObjectRenderer<MathBlock>
     protected override void Write(RazorComponentRenderer renderer, MathBlock obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
 
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             builder.OpenElement(0, "div");
             {
                 builder.AddAttributes(1, obj.TryGetAttributes());
                 builder.OpenComponent<KatexView>(2);
                 {
-                    builder.AddAttribute(3, nameof(KatexView.TexExpression), RazorComponentRenderer.GetLeafRawLines(obj));
-                    builder.AddAttribute(4, nameof(KatexView.Options), KatexOptions);
+                    builder.AddComponentParameter(3, nameof(KatexView.TexExpression), RazorComponentRenderer.GetLeafRawLines(obj));
+                    builder.AddComponentParameter(4, nameof(KatexView.Options), KatexOptions);
                 }
                 builder.CloseComponent();
             }

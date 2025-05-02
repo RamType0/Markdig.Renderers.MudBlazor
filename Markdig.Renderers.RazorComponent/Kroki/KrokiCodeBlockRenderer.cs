@@ -14,13 +14,12 @@ public class KrokiCodeBlockRenderer : ICodeBlockChildRenderer
         if (languageId is not null && DiagramTypes.All.Contains(languageId))
         {
             var builder = renderer.Builder;
-            var sequence = 0;
-            builder.OpenRegion(sequence);
+            builder.OpenRegion(0);
             {
                 builder.OpenComponent<KrokiCodeBlock>(0);
                 {
                     builder.AddAttributes(1, codeBlock.TryGetAttributes());
-                    builder.AddAttribute(2, nameof(KrokiCodeBlock.CodeBlock), codeBlock);
+                    builder.AddComponentParameter(2, nameof(KrokiCodeBlock.CodeBlock), codeBlock);
                 }
                 builder.CloseComponent();
             }

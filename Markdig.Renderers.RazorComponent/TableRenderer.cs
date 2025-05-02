@@ -1,5 +1,6 @@
 ﻿using Markdig.Extensions.Tables;
 using Markdig.Renderers.Html;
+using Microsoft.AspNetCore.Components;
 using System.Diagnostics;
 
 namespace Markdig.Renderers.RazorComponent;
@@ -9,8 +10,7 @@ public class TableRenderer : RazorComponentObjectRenderer<Table>
     protected override void Write(RazorComponentRenderer renderer, Table table)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             builder.OpenElement(0, "table");
             {
@@ -122,11 +122,24 @@ public class TableRenderer : RazorComponentObjectRenderer<Table>
 
                 }
                 builder.AddAttributes(3, cell.TryGetAttributes());
-                builder.OpenRegion(4);
+                if(cell.Count == 1)
                 {
-                    renderer.Write(cell);
+                    builder.AddImplicitParagraph(4, true, true, builder =>
+                    {
+                        using (renderer.UseBuilder(builder))
+                        {
+                            renderer.Write(cell);
+                        }
+                    });
                 }
-                builder.CloseRegion();
+                else
+                {
+                    builder.OpenRegion(5);
+                    {
+                        renderer.Write(cell);
+                    }
+                    builder.CloseRegion();
+                }
             }
             builder.CloseElement();
 

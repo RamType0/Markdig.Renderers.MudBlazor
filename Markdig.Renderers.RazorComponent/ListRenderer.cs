@@ -8,9 +8,7 @@ public class ListRenderer : RazorComponentObjectRenderer<ListBlock>
     protected override void Write(RazorComponentRenderer renderer, ListBlock listBlock)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             var listElementName = listBlock.IsOrdered ? "ol" : "ul";
             builder.OpenElement(0, listElementName);
@@ -30,12 +28,18 @@ public class ListRenderer : RazorComponentObjectRenderer<ListBlock>
                 foreach (var item in listBlock)
                 {
                     var listItem = (ListItemBlock)item;
-                    builder.OpenElement(4, "li");
+                    builder.AddImplicitParagraph(4, false, !listBlock.IsLoose, builder =>
                     {
-                        builder.AddAttributes(5, listItem.TryGetAttributes());
-                        renderer.WriteChildren(6, listItem);
-                    }
-                    builder.CloseElement();
+                        using (renderer.UseBuilder(builder))
+                        {
+                            builder.OpenElement(0, "li");
+                            {
+                                builder.AddAttributes(1, listItem.TryGetAttributes());
+                                renderer.WriteChildren(2, listItem);
+                            }
+                            builder.CloseElement();
+                        }
+                    });
                 }
             }
             builder.CloseElement();

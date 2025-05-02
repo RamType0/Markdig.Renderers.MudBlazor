@@ -14,8 +14,7 @@ public class AutolinkInlineRenderer : RazorComponentObjectRenderer<AutolinkInlin
     protected override void Write(RazorComponentRenderer renderer, AutolinkInline obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             var url = obj.Url;
             if (obj.IsEmail)

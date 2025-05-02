@@ -15,8 +15,7 @@ public class AutolinkInlineRenderer : RazorComponentObjectRenderer<AutolinkInlin
     protected override void Write(RazorComponentRenderer renderer, AutolinkInline obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             var url = obj.Url;
             if (obj.IsEmail)
@@ -25,13 +24,13 @@ public class AutolinkInlineRenderer : RazorComponentObjectRenderer<AutolinkInlin
             }
             builder.OpenComponent<MudLink>(0);
             {
-                builder.AddAttribute(1, nameof(MudLink.Href), url);
+                builder.AddComponentParameter(1, nameof(MudLink.Href), url);
                 builder.AddAttributesToMudComponent(2, obj.TryGetAttributes());
                 if (!obj.IsEmail && !string.IsNullOrWhiteSpace(Rel))
                 {
-                    builder.AddAttribute(3, "rel", Rel);
+                    builder.AddComponentParameter(3, "rel", Rel);
                 }
-                builder.AddAttribute(4, nameof(MudLink.ChildContent), (RenderFragment)(builder =>
+                builder.AddComponentParameter(4, nameof(MudLink.ChildContent), (RenderFragment)(builder =>
                 {
                     builder.AddContent(0, obj.Url);
                 }));

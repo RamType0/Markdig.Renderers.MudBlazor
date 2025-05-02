@@ -14,8 +14,7 @@ public class LinkInlineRenderer : RazorComponentObjectRenderer<LinkInline>
     protected override void Write(RazorComponentRenderer renderer, LinkInline link)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             var url = link.GetDynamicUrl?.Invoke() ?? link.Url;
             if (link.IsImage)

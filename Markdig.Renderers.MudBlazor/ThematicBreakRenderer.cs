@@ -10,8 +10,7 @@ public class ThematicBreakRenderer : RazorComponentObjectRenderer<ThematicBreakB
     protected override void Write(RazorComponentRenderer renderer, ThematicBreakBlock obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             builder.OpenComponent<MudDivider>(0);
             {

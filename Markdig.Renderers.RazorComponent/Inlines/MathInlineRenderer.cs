@@ -14,14 +14,13 @@ public class MathInlineRenderer : RazorComponentObjectRenderer<MathInline>
     protected override void Write(RazorComponentRenderer renderer, MathInline obj)
     {
         var builder = renderer.Builder;
-        var sequence = 0;
 
-        builder.OpenRegion(sequence);
+        builder.OpenRegion(0);
         {
             builder.OpenComponent<KatexView>(0);
             {
-                builder.AddAttribute(1, nameof(KatexView.TexExpression), obj.Content.ToString());
-                builder.AddAttribute(2, nameof(KatexView.Options), KatexOptions);
+                builder.AddComponentParameter(1, nameof(KatexView.TexExpression), obj.Content.ToString());
+                builder.AddComponentParameter(2, nameof(KatexView.Options), KatexOptions);
             }
             builder.CloseComponent();
         }
