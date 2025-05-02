@@ -1,0 +1,48 @@
+﻿@using Microsoft.JSInterop
+@using System.Text.Json
+@implements IAsyncDisposable
+@inject IJSRuntime JSRuntime
+<div @ref="@div"/>
+
+@code {
+
+    [Parameter]
+    public string? VegaSpec { get; set; }
+    [Parameter]
+    public Uri? VegaSpecUri { get; set; }
+    [Parameter]
+    public EmbedOptions? Options { get; set; }
+    ElementReference div;
+    readonly TaskCompletionSource firstRenderTcs = new();
+
+    IAsyncDisposable? vegaEmbedResult;
+    protected override async Task OnParametersSetAsync()
+    {
+        await firstRenderTcs.Task;
+        if(VegaSpec is not null)
+        {
+            var spec = JsonSerializer.Deserialize<JsonElement>(VegaSpec);
+            vegaEmbedResult = await JSRuntime.VegaEmbedAsync(div, spec, Options);
+        }
+        else if (VegaSpecUri is not null)
+        {
+            vegaEmbedResult = await JSRuntime.VegaEmbedAsync(div, VegaSpecUri, Options);
+        }
+        else
+        {
+            throw new ArgumentException($"Either {nameof(VegaSpec)} or {nameof(VegaSpecUri)} must be provided.");
+
+        }
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            firstRenderTcs.SetResult();
+        }
+    }
+    public ValueTask DisposeAsync()
+    {
+        return vegaEmbedResult?.DisposeAsync() ?? new();
+    }
+}

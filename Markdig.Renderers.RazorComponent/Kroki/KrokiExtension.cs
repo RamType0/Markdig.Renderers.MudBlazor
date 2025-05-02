@@ -1,4 +1,6 @@
-﻿namespace Markdig.Renderers.RazorComponent.Kroki;
+﻿using Markdig.Renderers.RazorComponent.ColorCode;
+
+namespace Markdig.Renderers.RazorComponent.Kroki;
 
 public class KrokiExtension : IMarkdownExtension
 {
@@ -14,6 +16,6 @@ public class KrokiExtension : IMarkdownExtension
             return;
         }
         var codeBlockRenderer = renderer.ObjectRenderers.FindExact<CodeBlockRenderer>() ?? throw new InvalidOperationException($"Could not find {nameof(CodeBlockRenderer)}.");
-        codeBlockRenderer.ChildRenderers.Insert(0, new KrokiCodeBlockRenderer());
+        codeBlockRenderer.ChildRenderers.InsertBefore<ColorCodeCodeBlockRenderer>(new KrokiCodeBlockRenderer());
     }
 }

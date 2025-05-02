@@ -47,4 +47,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Vega.Embed\Vega.Embed.csproj" />
+  </ItemGroup>
+
 </Project>
