@@ -1,0 +1,13 @@
+﻿@using Markdig.Syntax
+@using global::Vega.Embed
+<CascadingValue Value="@this" IsFixed ChildContent="@ChildContent"/>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment<Exception>? ErrorContent { get; set; }
+    [Parameter]
+    public EmbedOptions? VegaEmbedOptions { get; set; }
+
+}

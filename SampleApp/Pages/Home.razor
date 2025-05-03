@@ -6,6 +6,8 @@
 @using Markdig.Renderers.RazorComponent.Components
 @using Markdig.Renderers.RazorComponent.Kroki
 @using Microsoft.AspNetCore.Components.Rendering
+@using System.Globalization
+@using Vega.Embed
 
 <PageTitle>Home</PageTitle>
 
@@ -17,80 +19,38 @@
     </MudItem>
     <MudItem xs="6">
         <MudField Label="Preview">
-            <CascadingKrokiCodeBlockOptions>
-                <OpenCodeBlockContent>
-                    <MudProgressCircular Indeterminate />
-                </OpenCodeBlockContent>
+            <CascadingVegaEmbedCodeBlockOptions VegaEmbedOptions="@VegaEmbedOptions">
                 <ChildContent>
-                    <MudMarkdown Value="@markdownText" Pipeline="@GetPipeline()" />
+                    <CascadingCodeBlockOptions>
+                        <OpenCodeBlockContent>
+                            <MudProgressCircular Indeterminate />
+                        </OpenCodeBlockContent>
+                        <ChildContent>
+                            <MudMarkdown Value="@markdownText" Pipeline="@GetPipeline()" />
+                        </ChildContent>
+                    </CascadingCodeBlockOptions>
                 </ChildContent>
-            </CascadingKrokiCodeBlockOptions>
+                <ErrorContent Context="exception">
+                    <MudAlert Severity="Severity.Error">
+                        @exception.Message
+                    </MudAlert>
+                </ErrorContent>
+            </CascadingVegaEmbedCodeBlockOptions>
+
         </MudField>
     </MudItem>
 </MudGrid>
 
 @code{
+    static EmbedOptions VegaEmbedOptions { get; } = new()
+    {
+        FormatLocale = D3FormatLocale.FromNumberFormatInfo(CultureInfo.CurrentUICulture.NumberFormat),
+        TimeFormatLocale = D3TimeFormatLocale.FromDateTimeFormatInfo(CultureInfo.CurrentUICulture.DateTimeFormat),
+    };
     bool useMudBlazor = true;
 
     bool useKroki = true;
-    string markdownText = @"
-# Heading 1
-## Heading 2
-### Heading 3
-#### Heading 4
-##### Heading 5
-###### Heading 6
 
-Paragraph
-
-*Emphasis*
-**Emphasis**
-
-> BlockQuote
-
-This is a $math inline$
-
- a     | b
--------|-------
- 0     | 1
- 2     | 3
-
-$$
-\begin{equation}
-  \int_0^\infty \frac{x^3}{e^x-1}\,dx = \frac{\pi^4}{15}
-\end{equation}
-$$
-
-```mermaid
-
-graph TD
-  A[ Anyone ] -->|Can help | B( Go to github.com/yuzutech/kroki )
-  B --> C{ How to contribute? }
-  C --> D[ Reporting bugs ]
-  C --> E[ Sharing ideas ]
-  C --> F[ Advocating ]
-
-```
-
-```nomnoml
-
-[Pirate|eyeCount: Int|raid();pillage()|
-  [beard]--[parrot]
-  [beard]-:>[foul mouth]
-]
-
-[<abstract>Marauder]<:--[Pirate]
-[Pirate]- 0..7[mischief]
-[jollyness]->[Pirate]
-[jollyness]->[rum]
-[jollyness]->[singing]
-[Pirate]-> *[rum|tastiness: Int|swig()]
-[Pirate]->[singing]
-[singing]<->[rum]
-
-```
-
-";
 
     MarkdownPipeline GetPipeline()
     {

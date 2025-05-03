@@ -3,13 +3,14 @@ using Markdig.Renderers.Html;
 using Markdig.Renderers.RazorComponent.ColorCode;
 using Markdig.Renderers.RazorComponent.Components;
 using Markdig.Renderers.RazorComponent.Vega;
+using Markdig.Renderers.RazorComponent.Vega.Embed;
 using Markdig.Syntax;
 
 namespace Markdig.Renderers.RazorComponent;
 
 public class CodeBlockRenderer : RazorComponentObjectRenderer<CodeBlock>
 {
-    public OrderedList<ICodeBlockChildRenderer> ChildRenderers { get; } = [new VegaCodeBlockRenderer(), new ColorCodeCodeBlockRenderer()];
+    public OrderedList<ICodeBlockChildRenderer> ChildRenderers { get; } = [new VegaEmbedCodeBlockRenderer(), new ColorCodeCodeBlockRenderer()];
     public bool OutputAttributesOnPre { get; set; }
     protected override void Write(RazorComponentRenderer renderer, CodeBlock codeBlock)
     {

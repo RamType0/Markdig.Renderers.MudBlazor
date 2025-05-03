@@ -3,19 +3,21 @@
 @using System.IO.Compression
 @inject KrokiClient KrokiClient
 
+<div alt="@diagramSource" @attributes="@Attributes">
 @if (overrideContent is not null)
 {
     @overrideContent(CodeBlock)
 }
 else
 {
-    <img src="@imageSrc" diagram-type="@diagramType" alt="@diagramSource" @attributes="@Attributes" />
+    <img src="@imageSrc" />
 }
 
+</div>
 @code {
 
     [CascadingParameter]
-    CascadingKrokiCodeBlockOptions? Options { get; set; }
+    CascadingCodeBlockOptions? CodeBlockOptions { get; set; }
 
     [Parameter, EditorRequired]
     public required CodeBlock CodeBlock { get; set; }
@@ -23,27 +25,16 @@ else
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object?> Attributes { get; set; } = [];
 
-    string diagramType = "";
     string diagramSource = "";
 
     string imageSrc = "";
     RenderFragment<CodeBlock>? overrideContent;
 
-
-    bool TryGetOpenCodeBlockContent(out RenderFragment<CodeBlock>? openCodeBlockContent)
-    {
-        if (Options?.OpenCodeBlockContent is { } content)
-        {
-            openCodeBlockContent = content;
-            return true;
-        }
-        openCodeBlockContent = null;
-        return false;
-    }
-
     protected override void OnParametersSet()
     {
-        if (CodeBlock.IsOpen && Options?.OpenCodeBlockContent is { } openCodeBlockContent)
+        diagramSource = RazorComponentRenderer.GetLeafRawLines(CodeBlock);
+
+        if (CodeBlock.IsOpen && CodeBlockOptions?.OpenCodeBlockContent is { } openCodeBlockContent)
         {
             overrideContent = openCodeBlockContent;
             return;
@@ -52,11 +43,10 @@ else
         {
             overrideContent = null;
 
-            diagramType = (CodeBlock as FencedCodeBlock)?.Info ?? throw new ArgumentException();
-            diagramSource = RazorComponentRenderer.GetLeafRawLines(CodeBlock);
+            
             imageSrc = KrokiClient.CreateGetUri(new()
                 {
-                    DiagramType = diagramType,
+                    DiagramType = (CodeBlock as FencedCodeBlock)?.Info ?? throw new ArgumentException(),
                     OutputFormat = FileFormat.Svg,
                     DiagramSource = diagramSource
                 }, CompressionLevel.Optimal).AbsoluteUri;

@@ -1,0 +1,69 @@
+﻿@using System.Text.Json
+@using System.Text.Json.Nodes
+@using Markdig.Syntax
+@using global::Vega.Embed
+<div @attributes="@Attributes">
+
+@if(overrideContent is not null)
+{
+    @overrideContent(CodeBlock)
+}
+else
+{
+    
+
+        @if (Options?.ErrorContent is { } errorContent)
+        {
+            <ErrorBoundary @ref="@errorBoundary" ErrorContent="@errorContent">
+                <ChildContent>
+                    <VegaEmbedView VegaSpecJson="@vegaSpecJson" Options="@Options?.VegaEmbedOptions" />
+                </ChildContent>
+            </ErrorBoundary>
+        }
+        else
+        {
+            <VegaEmbedView VegaSpecJson="@vegaSpecJson" Options="@Options?.VegaEmbedOptions" />
+        }
+
+}
+
+
+</div>
+
+
+@code{
+
+    [CascadingParameter]
+    CascadingCodeBlockOptions? CodeBlockOptions { get; set; }
+
+
+
+    [CascadingParameter]
+    CascadingVegaEmbedCodeBlockOptions? Options { get; set; }
+
+
+
+    [Parameter, EditorRequired]
+    public required CodeBlock CodeBlock { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object?> Attributes { get; set; } = [];
+    string vegaSpecJson = "";
+    ErrorBoundary? errorBoundary;
+
+    RenderFragment<CodeBlock>? overrideContent;
+    protected override void OnParametersSet()
+    {
+        errorBoundary?.Recover();
+        if (CodeBlock.IsOpen && CodeBlockOptions?.OpenCodeBlockContent is { } openCodeBlockContent)
+        {
+            overrideContent = openCodeBlockContent;
+            return;
+        }
+        else
+        {
+            overrideContent = null;
+            vegaSpecJson = RazorComponentRenderer.GetLeafRawLines(CodeBlock);
+        }
+    }
+}

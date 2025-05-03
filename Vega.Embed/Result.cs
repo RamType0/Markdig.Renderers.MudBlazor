@@ -23,25 +23,3 @@ internal class Result : IAsyncDisposable
         await JsResult.DisposeAsync();
     }
 }
-
-public record EmbedOptions
-{
-    [JsonPropertyName("mode")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public VegaEmbedMode? Mode { get; init; }
-    [JsonPropertyName("width")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public double? Width { get; init; }
-    [JsonPropertyName("height")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public double? Height { get; init; }
-
-    [JsonPropertyName("formatLocale")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public D3FormatLocale? FormatLocale { get; init; }
-
-    [JsonPropertyName("timeFormatLocale")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public D3TimeFormatLocale? TimeFormatLocale { get; init; }
-
-}

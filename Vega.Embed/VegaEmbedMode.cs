@@ -6,7 +6,7 @@ namespace Vega.Embed;
 #if NET9_0_OR_GREATER
 [JsonConverter(typeof(JsonStringEnumConverter))]
 #else
-[JsonConverter(typeof(VegaEmbedModeConverter))]
+[JsonConverter(typeof(VegaEmbedModeJsonConverter))]
 #endif
 public enum VegaEmbedMode
 {
@@ -22,9 +22,9 @@ public enum VegaEmbedMode
 
 
 #if !NET9_0_OR_GREATER
-internal sealed class VegaEmbedModeConverter : JsonStringEnumConverter<VegaEmbedMode>
+internal sealed class VegaEmbedModeJsonConverter : JsonStringEnumConverter<VegaEmbedMode>
 {
-    public VegaEmbedModeConverter() : base(new VegaEmbedModeJsonNamingPolicy())
+    public VegaEmbedModeJsonConverter() : base(new VegaEmbedModeJsonNamingPolicy())
     {
     }
 }
@@ -39,3 +39,4 @@ internal sealed class VegaEmbedModeJsonNamingPolicy : JsonNamingPolicy
     };
 }
 #endif
+
