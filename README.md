@@ -4,8 +4,11 @@
 
 ## Getting started
 
-### KaTeX integration
-If you want to render `MathInline`, you need to [install KaTeX](https://katex.org/docs/browser) in your app.
+### [KaTeX](https://github.com/KaTeX/KaTeX) integration
+If you want to render `MathInline`, you need to do following steps.
+
+
+#### [Install KaTeX](https://katex.org/docs/browser) in your app
 
 Add this to `<head>` element. 
 ```html
@@ -16,9 +19,18 @@ Also, you need to add this to bottom of `<body>` element.
 ```html
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
 ```
-### Vega-Embed integration
+### Add `KatexExtension` to `MarkdownPipelineBuilder`
+```C#
+using Markdig.Renderers.RazorComponent.Katex;
 
-You need to [install Vega-Embed](https://github.com/vega/vega-embed?tab=readme-ov-file#directly-in-the-browser) in your app.
+pipelineBuilder.UseKatex();
+```
+
+### [Vega-Embed](https://github.com/vega/vega-embed) integration
+
+If you want to render Vega and Vega-Lite charts, you need to do following steps.
+
+#### [Install Vega-Embed](https://github.com/vega/vega-embed?tab=readme-ov-file#directly-in-the-browser) in your app
 
 Add this to bottom of `<body>` element.
 
@@ -31,16 +43,25 @@ Add this to bottom of `<body>` element.
 
 ```
 
-### Kroki (mermaid, nomnoml) intefration
-If you want to render mermaid and nomnoml diagrams, you need to add `KrokiClient` to services.
+#### Add `VegaEmbedExtension` to `MarkdownPipelineBuilder`
+```C#
+using Markdig.Renderers.RazorComponent.Vega.Embed;
+
+pipelineBuilder.UseVegaEmbed();
+```
+
+### [Kroki](https://github.com/yuzutech/kroki) integration
+If you want to render diagrams supported by Kroki, you need to do following steps. 
+
+#### Add `KrokiHttpRequestFactory` to services
 
 ```C#
 
-builder.Services.AddKrokiClient();
+builder.Services.AddKrokiHttpRequestFactory();
 
 ```
 
-Also, you need to call `UseKroki` on `MarkdownPipelineBuilder`.
+#### Add `KrokiExtension` to `MarkdownPipelineBuilder`
 
 ```C#
 
@@ -179,3 +200,20 @@ Unlike MudBlazor.Markdown, this library is using ColorCode instead of highlight.
 mermaid.js is very difficult to integrate to Blazor because it does terrible DOM manipulation.
 
 This library is using [Kroki](https://github.com/yuzutech/kroki), and does not depend on mermaid.js directly.
+
+## Compatible for LLM apps
+
+Use `CascadingCodeBlockOptions.OpenCodeBlockContent` to override code block content for Vega-Embed, Kroki open code blocks.
+
+This would be helpful for LLM apps. Open code blocks indicates that the code is imcomplete and rendering them resulted in error.
+
+```razor
+<CascadingCodeBlockOptions>
+    <OpenCodeBlockContent>
+        <MudProgressCircular Indeterminate />
+    </OpenCodeBlockContent>
+    <ChildContent>
+        <MudMarkdown Value="@markdownText" Pipeline="@GetPipeline()" />
+    </ChildContent>
+</CascadingCodeBlockOptions>
+```
