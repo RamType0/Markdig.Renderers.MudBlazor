@@ -1,10 +1,9 @@
 ﻿using Markdig.Extensions.Mathematics;
 using Markdig.Renderers.RazorComponent.Components;
-using Markdig.Renderers.RazorComponent.Katex;
 
-namespace Markdig.Renderers.RazorComponent.Inlines;
+namespace Markdig.Renderers.RazorComponent.Katex;
 
-public class MathInlineRenderer : RazorComponentObjectRenderer<MathInline>
+public class KatexMathInlineRenderer : RazorComponentObjectRenderer<MathInline>
 {
     public static KatexOptions DefaultKatexOptions { get; } = new()
     {

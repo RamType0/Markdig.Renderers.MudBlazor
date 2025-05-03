@@ -1,11 +1,10 @@
 ﻿using Markdig.Extensions.Mathematics;
 using Markdig.Renderers.Html;
 using Markdig.Renderers.RazorComponent.Components;
-using Markdig.Renderers.RazorComponent.Katex;
 
-namespace Markdig.Renderers.RazorComponent;
+namespace Markdig.Renderers.RazorComponent.Katex;
 
-public class MathBlockRenderer : RazorComponentObjectRenderer<MathBlock>
+public class KatexMathBlockRenderer : RazorComponentObjectRenderer<MathBlock>
 {
     public static KatexOptions DefaultKatexOptions { get; } = new()
     {

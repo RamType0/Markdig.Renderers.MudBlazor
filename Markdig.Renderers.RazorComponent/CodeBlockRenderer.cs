@@ -10,7 +10,7 @@ namespace Markdig.Renderers.RazorComponent;
 
 public class CodeBlockRenderer : RazorComponentObjectRenderer<CodeBlock>
 {
-    public OrderedList<ICodeBlockChildRenderer> ChildRenderers { get; } = [new VegaEmbedCodeBlockRenderer(), new ColorCodeCodeBlockRenderer()];
+    public OrderedList<ICodeBlockChildRenderer> ChildRenderers { get; } = [new ColorCodeCodeBlockRenderer()];
     public bool OutputAttributesOnPre { get; set; }
     protected override void Write(RazorComponentRenderer renderer, CodeBlock codeBlock)
     {

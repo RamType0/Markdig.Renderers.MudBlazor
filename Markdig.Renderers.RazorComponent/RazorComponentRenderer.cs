@@ -14,7 +14,6 @@ public class RazorComponentRenderer : RendererBase
         Builder = renderTreeBuilder;
 
         // Default block renderers
-        ObjectRenderers.Add(new MathBlockRenderer()); // This must be before CodeBlockRenderer
         ObjectRenderers.Add(new CodeBlockRenderer());
         ObjectRenderers.Add(new ListRenderer());
         ObjectRenderers.Add(new HeadingRenderer());
@@ -35,7 +34,6 @@ public class RazorComponentRenderer : RendererBase
         ObjectRenderers.Add(new LiteralInlineRenderer());
 
         ObjectRenderers.Add(new TableRenderer());
-        ObjectRenderers.Add(new MathInlineRenderer());
     }
 
     public RenderTreeBuilder Builder { get; set; }
