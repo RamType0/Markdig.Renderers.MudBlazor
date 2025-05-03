@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega.Embed", "Vega.Embed\Vega.Embed.csproj", "{3C0F9AE7-E069-FD0C-10AD-59B6919E29C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega", "Vega\Vega.csproj", "{4333B57B-7EDE-44A7-92E1-D6EE097A07FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3C0F9AE7-E069-FD0C-10AD-59B6919E29C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C0F9AE7-E069-FD0C-10AD-59B6919E29C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C0F9AE7-E069-FD0C-10AD-59B6919E29C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4333B57B-7EDE-44A7-92E1-D6EE097A07FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4333B57B-7EDE-44A7-92E1-D6EE097A07FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4333B57B-7EDE-44A7-92E1-D6EE097A07FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4333B57B-7EDE-44A7-92E1-D6EE097A07FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
