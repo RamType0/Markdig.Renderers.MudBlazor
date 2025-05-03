@@ -13,7 +13,7 @@
     <Description>Markdown renderers for MudBlazor.</Description>
     <PackageTags>aspnetcore, components, Blazor, Markdown, CommonMark, md, MudBlazor</PackageTags>
     <Copyright>© RamType0</Copyright>
-	<VersionPrefix>0.7.0</VersionPrefix>
+	<VersionPrefix>0.8.0</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MudBlazor" Version="8.5.1" />
+    <PackageReference Include="MudBlazor" Version="8.6.0" />
   </ItemGroup>
 
   <ItemGroup>
