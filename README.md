@@ -16,6 +16,20 @@ Also, you need to add this to bottom of `<body>` element.
 ```html
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
 ```
+### Vega-Embed integration
+
+You need to [install Vega-Embed](https://github.com/vega/vega-embed?tab=readme-ov-file#directly-in-the-browser) in your app.
+
+Add this to bottom of `<body>` element.
+
+```html
+<!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@[VERSION]"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@[VERSION]"></script>
+    <!-- Import vega-embed -->
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@[VERSION]"></script>
+
+```
 
 ### Kroki (mermaid, nomnoml) intefration
 If you want to render mermaid and nomnoml diagrams, you need to add `KrokiClient` to services.
