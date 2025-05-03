@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega.Embed", "Vega.Embed\Vega.Embed.csproj", "{3C0F9AE7-E069-FD0C-10AD-59B6919E29C5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{066B1986-B8D9-45FF-9D91-DD26FFA66A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{066B1986-B8D9-45FF-9D91-DD26FFA66A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{066B1986-B8D9-45FF-9D91-DD26FFA66A37}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C0F9AE7-E069-FD0C-10AD-59B6919E29C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C0F9AE7-E069-FD0C-10AD-59B6919E29C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C0F9AE7-E069-FD0C-10AD-59B6919E29C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C0F9AE7-E069-FD0C-10AD-59B6919E29C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

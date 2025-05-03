@@ -4,14 +4,12 @@
 @using global::Vega.Embed
 <div @attributes="@Attributes">
 
-@if(overrideContent is not null)
-{
-    @overrideContent(CodeBlock)
-}
-else
-{
-    
-
+    @if(overrideContent is not null)
+    {
+        @overrideContent(CodeBlock)
+    }
+    else
+    {
         @if (Options?.ErrorContent is { } errorContent)
         {
             <ErrorBoundary @ref="@errorBoundary" ErrorContent="@errorContent">
@@ -24,10 +22,7 @@ else
         {
             <VegaEmbedView VegaSpecJson="@vegaSpecJson" Options="@Options?.VegaEmbedOptions" />
         }
-
-}
-
-
+    }
 </div>
 
 
