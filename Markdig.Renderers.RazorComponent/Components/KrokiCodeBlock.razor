@@ -1,7 +1,7 @@
 ﻿@using Markdig.Syntax
 @using global::Kroki
 @using System.IO.Compression
-@inject KrokiClient KrokiClient
+@inject KrokiHttpRequestFactory KrokiHttpRequestFactory
 
 <div alt="@diagramSource" @attributes="@Attributes">
 @if (overrideContent is not null)
@@ -44,7 +44,7 @@ else
             overrideContent = null;
 
             
-            imageSrc = KrokiClient.CreateGetUri(new()
+            imageSrc = KrokiHttpRequestFactory.CreateGetRequestUri(new()
                 {
                     DiagramType = (CodeBlock as FencedCodeBlock)?.Info ?? throw new ArgumentException(),
                     OutputFormat = FileFormat.Svg,

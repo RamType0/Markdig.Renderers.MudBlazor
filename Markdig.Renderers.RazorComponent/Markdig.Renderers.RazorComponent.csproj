@@ -22,8 +22,8 @@
 
   <ItemGroup>
     <PackageReference Include="ColorCode.HTML" Version="2.0.15" />
-    <PackageReference Include="Kroki" Version="1.1.0" />
-    <PackageReference Include="Kroki.DependencyInjection" Version="1.1.0" />
+    <PackageReference Include="Kroki" Version="2.0.0" />
+    <PackageReference Include="Kroki.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Markdig" Version="0.41.1" />
     <PackageReference Include="Vega.Embed" Version="0.1.0" />
   </ItemGroup>
