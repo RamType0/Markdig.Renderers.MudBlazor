@@ -1,28 +1,37 @@
-﻿@using Markdig.Extensions.Mathematics
-@using Markdig.Renderers.RazorComponent.Katex
-@using Microsoft.JSInterop
-@inject IJSRuntime JsRuntime
+﻿@using Markdig.Renderers.RazorComponent.Katex
+@using System.Text.Json
+@using System.Text.Json.Serialization
 
-@if(renderedExpression is { } rendered)
-{
-    @rendered
-}
-else
-{
-    @TexExpression
-}
-
+<katex-view parameters="@jsParametersJson"/>
 @code {
     [Parameter, EditorRequired]
     public required string TexExpression { get; set; }
     [Parameter]
     public KatexOptions? Options { get; set; }
-    MarkupString? renderedExpression;
 
-    protected override async Task OnParametersSetAsync()
+    string? jsParametersJson;
+
+
+    protected override void OnParametersSet()
     {
-        renderedExpression = null;
-        var html = await JsRuntime.InvokeAsync<string>("katex.renderToString", TexExpression, Options);
-        renderedExpression = new(html);
+        JsParameters jsParameters = new()
+            {
+                Tex = TexExpression,
+                Options = Options,
+            };
+#if NET9_0_OR_GREATER
+        jsParametersJson = JsonSerializer.Serialize(jsParameters, JsonSerializerOptions.Web);
+#else
+
+        jsParametersJson = JsonSerializer.Serialize(jsParameters);
+#endif
+    }
+
+    struct JsParameters
+    {
+        [JsonPropertyName("tex")]
+        public required string Tex { get; init; }
+        [JsonPropertyName("options")]
+        public KatexOptions? Options { get; init; }
     }
 }

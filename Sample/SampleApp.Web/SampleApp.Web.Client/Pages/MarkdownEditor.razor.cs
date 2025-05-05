@@ -1,6 +1,6 @@
-﻿namespace SampleApp.Pages;
+﻿namespace SampleApp.Web.Client.Pages;
 
-partial class Home
+partial class MarkdownEditor
 {
     string markdownText = """
 # Heading 1

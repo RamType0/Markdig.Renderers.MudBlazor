@@ -22,10 +22,14 @@
 
   <ItemGroup>
     <PackageReference Include="ColorCode.HTML" Version="2.0.15" />
-    <PackageReference Include="Kroki" Version="2.0.0" />
-    <PackageReference Include="Kroki.DependencyInjection" Version="2.0.0" />
+    <PackageReference Include="Kroki" Version="2.0.1" />
+    <PackageReference Include="Kroki.DependencyInjection" Version="2.0.1" />
     <PackageReference Include="Markdig" Version="0.41.1" />
-    <PackageReference Include="Vega.Embed" Version="0.1.0" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.8.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Vega.Embed" Version="0.2.0" />
   </ItemGroup>
 	
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
@@ -34,11 +38,6 @@
 	
   <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
-  </ItemGroup>
-	
-	
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>

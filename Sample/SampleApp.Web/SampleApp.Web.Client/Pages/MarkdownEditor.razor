@@ -1,17 +1,9 @@
-﻿@page "/"
-@using Markdig
-@using Markdig.Renderers.MudBlazor
-@using Markdig.Renderers.MudBlazor.Components
-@using Markdig.Renderers.RazorComponent
-@using Markdig.Renderers.RazorComponent.Components
-@using Markdig.Renderers.RazorComponent.Katex
-@using Markdig.Renderers.RazorComponent.Kroki
-@using Markdig.Renderers.RazorComponent.Vega.Embed
-@using Microsoft.AspNetCore.Components.Rendering
-@using System.Globalization
-@using Vega.Embed
+﻿@page "/MarkdownEditor"
+@rendermode InteractiveAuto
 
-<PageTitle>Home</PageTitle>
+@using System.Globalization
+
+<PageTitle>Markdown Editor</PageTitle>
 
 <MudGrid>
     <MudItem xs="6">
@@ -45,15 +37,15 @@
     </MudItem>
 </MudGrid>
 
-@code{
+@code {
     static EmbedOptions VegaEmbedOptions { get; } = new()
-    {
-        FormatLocale = D3FormatLocale.FromNumberFormatInfo(CultureInfo.CurrentUICulture.NumberFormat),
-        TimeFormatLocale = D3TimeFormatLocale.FromDateTimeFormatInfo(CultureInfo.CurrentUICulture.DateTimeFormat),
-    };
+        {
+            FormatLocale = D3FormatLocale.FromNumberFormatInfo(CultureInfo.CurrentUICulture.NumberFormat),
+            TimeFormatLocale = D3TimeFormatLocale.FromDateTimeFormatInfo(CultureInfo.CurrentUICulture.DateTimeFormat),
+        };
     bool useMudBlazor = true;
     bool useKatex = true;
-    bool useVegaEmbed = true;
+    bool useVegaEmbed = false;
     bool useKroki = true;
 
 

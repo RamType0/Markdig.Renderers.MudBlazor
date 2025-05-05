@@ -1,7 +1,7 @@
 ﻿@using System.Text.Json
 @using System.Text.Json.Nodes
 @using Markdig.Syntax
-@using global::Vega.Embed
+@using global::Vega.Embed.Components
 <div @attributes="@Attributes">
 
     @if(overrideContent is not null)
@@ -14,13 +14,13 @@
         {
             <ErrorBoundary @ref="@errorBoundary" ErrorContent="@errorContent">
                 <ChildContent>
-                    <VegaEmbedView VegaSpecJson="@vegaSpecJson" Options="@Options?.VegaEmbedOptions" />
+                    <VegaEmbedView SpecJson="@vegaSpecJson" Options="@Options?.VegaEmbedOptions" />
                 </ChildContent>
             </ErrorBoundary>
         }
         else
         {
-            <VegaEmbedView VegaSpecJson="@vegaSpecJson" Options="@Options?.VegaEmbedOptions" />
+            <VegaEmbedView SpecJson="@vegaSpecJson" Options="@Options?.VegaEmbedOptions" />
         }
     }
 </div>

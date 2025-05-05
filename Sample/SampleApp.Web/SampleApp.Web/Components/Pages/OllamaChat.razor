@@ -1,0 +1,118 @@
+﻿@page "/OllamaChat"
+@rendermode InteractiveServer
+
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.ChatCompletion
+@using System.Globalization
+@using System.ComponentModel.DataAnnotations
+
+@inject Kernel Kernel
+
+<PageTitle>Ollama Chat</PageTitle>
+
+    <CascadingCodeBlockOptions>
+        <OpenCodeBlockContent>
+            <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="400" Height="400" />
+        </OpenCodeBlockContent>
+        <ChildContent>
+            <CascadingVegaEmbedCodeBlockOptions>
+                <ErrorContent Context="exception">
+                    <MudAlert Severity="Severity.Error">
+                        @exception.Message
+                    </MudAlert>
+                </ErrorContent>
+                <ChildContent>
+                    <MudStack Class="pa-4 flex-grow-1" Style="overflow-y: scroll;">
+                        @foreach (var message in chatHistory)
+                        {
+                            var color = message.Role == AuthorRole.Assistant ? Color.Tertiary : Color.Primary;
+                            var position = message.Role == AuthorRole.Assistant ? ChatBubblePosition.Start : ChatBubblePosition.End;
+
+                            <MudChat Dense Variant="Variant.Filled" ChatPosition="@position" Color="@color">
+                                @if (message.Content is not null)
+                                {
+                                    <MudChatBubble>
+                                        <MudMarkdown Value="@message.Content" Pipeline="@MarkdownPipeline" />
+                                    </MudChatBubble>
+                                }
+
+                            </MudChat>
+                        }
+                        @if (processing)
+                        {
+                            <MudProgressCircular Indeterminate />
+                        }
+                    </MudStack>
+                    <EditForm Model="@this" OnSubmit="OnSubmit">
+                        <MudPaper Elevation="25" Class="d-flex flex-row px-2 sticky" Style="top:100dvh; padding-bottom: env(safe-area-inset-bottom);">
+                            <MudTextField Immediate @bind-Value="MessageText" Placeholder="Enter message" />
+                            <MudButton ButtonType="ButtonType.Submit" StartIcon="@Icons.Material.Outlined.Send" Color="Color.Secondary" Disabled="!CanSend">
+                                Send
+                            </MudButton>
+
+                        </MudPaper>
+                    </EditForm>
+                </ChildContent>
+            </CascadingVegaEmbedCodeBlockOptions>
+        </ChildContent>
+    </CascadingCodeBlockOptions>
+@code {
+    static MarkdownPipeline MarkdownPipeline { get; } = new MarkdownPipelineBuilder().UseAdvancedExtensions().UseMudBlazor().UseKatex().UseVegaEmbed().UseKroki().Build();
+    static EmbedOptions VegaEmbedOptions { get; } = new()
+        {
+            FormatLocale = D3FormatLocale.FromNumberFormatInfo(CultureInfo.CurrentUICulture.NumberFormat),
+            TimeFormatLocale = D3TimeFormatLocale.FromDateTimeFormatInfo(CultureInfo.CurrentUICulture.DateTimeFormat),
+        };
+    ChatHistory chatHistory = [];
+    string MessageText { get; set; } = "";
+    bool processing = false;
+
+    bool CanSend => !processing && !string.IsNullOrWhiteSpace(MessageText);
+
+    Task OnSubmit()
+    {
+        if (CanSend)
+        {
+            return SendMessage();
+        }
+        else
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    async Task SendMessage()
+    {
+        try
+        {
+            processing = true;
+
+            var chatCompletionService = Kernel.GetRequiredService<IChatCompletionService>();
+
+            List<StreamingChatMessageContent> streamingChatMessageContents = [];
+
+
+            chatHistory.AddUserMessage(MessageText.Trim());
+
+            MessageText = "";
+
+            ChatMessageContent assistantMessage = new(AuthorRole.Assistant, (string?)null);
+
+            chatHistory.Add(assistantMessage);
+
+
+            StateHasChanged();
+            await foreach (var content in chatCompletionService.GetStreamingChatMessageContentsAsync(chatHistory, kernel: Kernel))
+            {
+                assistantMessage.Content += content.Content;
+                StateHasChanged();
+            }
+            StateHasChanged();
+        }
+        finally
+        {
+            processing = false;
+            StateHasChanged();
+        }
+    }
+}
