@@ -1,0 +1,37 @@
+﻿@using Markdig.Renderers.RazorComponent.Katex
+@using System.Text.Json
+@using System.Text.Json.Serialization
+
+<katex-view parameters="@jsParametersJson"/>
+@code {
+    [Parameter, EditorRequired]
+    public required string TexExpression { get; set; }
+    [Parameter]
+    public KatexOptions? Options { get; set; }
+
+    string? jsParametersJson;
+
+
+    protected override void OnParametersSet()
+    {
+        JsParameters jsParameters = new()
+            {
+                Tex = TexExpression,
+                Options = Options,
+            };
+#if NET9_0_OR_GREATER
+        jsParametersJson = JsonSerializer.Serialize(jsParameters, JsonSerializerOptions.Web);
+#else
+
+        jsParametersJson = JsonSerializer.Serialize(jsParameters);
+#endif
+    }
+
+    struct JsParameters
+    {
+        [JsonPropertyName("tex")]
+        public required string Tex { get; init; }
+        [JsonPropertyName("options")]
+        public KatexOptions? Options { get; init; }
+    }
+}

@@ -1,8 +1,5 @@
 import { IBlazorWeb } from "../TypeScript/blazor";
-
-declare const katex: {
-    renderToString: (tex: string, options?: any) => string;
-}
+import katex from "katex"
 export function afterWebStarted(blazor: IBlazorWeb) {
     customElements.define("katex-view", class extends HTMLElement {
         static observedAttributes = ["parameters"];

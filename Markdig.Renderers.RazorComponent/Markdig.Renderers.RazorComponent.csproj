@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -25,19 +25,11 @@
     <PackageReference Include="Kroki" Version="2.0.1" />
     <PackageReference Include="Kroki.DependencyInjection" Version="2.0.1" />
     <PackageReference Include="Markdig" Version="0.41.1" />
+	<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.8.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Vega.Embed" Version="0.2.0" />
-  </ItemGroup>
-	
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.15" />
-  </ItemGroup>
-	
-  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +37,18 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+	
+  <Target Name="NPM Install" AfterTargets="PreBuildEvent">
+    <Exec Command="npm install" />
+  </Target>
+	
+  <Target Name="NPM Build" AfterTargets="PostBuildEvent">
+    <Exec Command="npm run build" />
+  </Target>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\..\VegaDotNet\Vega.Embed\Vega.Embed.csproj" />
   </ItemGroup>
 
 </Project>

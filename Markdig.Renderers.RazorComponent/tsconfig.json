@@ -1,17 +1,12 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "noEmitOnError": true,
-    "removeComments": true,
-    "sourceMap": true,
     "target": "ES2022",
-    "moduleResolution": "node",
-    "allowUmdGlobalAccess": true,
-    "module": "ES2022"
-  },
-  "exclude": [
-    "node_modules"
-  ]
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmitOnError": true,
+    "sourceMap": true
+  }
 }

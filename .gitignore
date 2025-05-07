@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# TypeScript compiler generated files
+*.js
+*.js.map
+*.mjs
+*.mjs.map

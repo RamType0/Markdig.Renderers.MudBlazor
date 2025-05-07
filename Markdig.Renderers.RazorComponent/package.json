@@ -1,11 +1,17 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node ./esbuild.config.mjs"
   },
   "devDependencies": {
+    "esbuild": "^0.25.4",
     "@microsoft/signalr": "^8.0.7",
     "@types/blazor__javascript-interop": "^3.1.7",
-    "@types/node": "^22.13.10"
+    "@types/node": "^22.13.10",
+    "@types/async-lock": "^1.4.2"
+  },
+  "dependencies": {
+    "katex": "0.16.22"
   }
 }
