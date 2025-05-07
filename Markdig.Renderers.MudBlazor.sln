@@ -23,8 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp.Web", "Sample\Sam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp.Web.Client", "Sample\SampleApp.Web\SampleApp.Web.Client\SampleApp.Web.Client.csproj", "{C349FED0-6DC0-4C1C-BAB2-60AB70062EF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega.Embed", "..\VegaDotNet\Vega.Embed\Vega.Embed.csproj", "{C6B6F4CE-E0C5-D712-916D-450C4EB0810D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,10 +53,6 @@ Global
 		{C349FED0-6DC0-4C1C-BAB2-60AB70062EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C349FED0-6DC0-4C1C-BAB2-60AB70062EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C349FED0-6DC0-4C1C-BAB2-60AB70062EF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6B6F4CE-E0C5-D712-916D-450C4EB0810D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6B6F4CE-E0C5-D712-916D-450C4EB0810D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6B6F4CE-E0C5-D712-916D-450C4EB0810D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6B6F4CE-E0C5-D712-916D-450C4EB0810D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -30,6 +30,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Vega.Embed" Version="0.3.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,18 +38,22 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+		
+    <Content Remove="package.json" />
+    <TypeScriptCompile Include="package.json" />
+	<Content Remove="package-lock.json" />
+    <TypeScriptCompile Include="package-lock.json" />
+    <Content Remove="tsconfig.json" />
+    <TypeScriptCompile Include="tsconfig.json" />
   </ItemGroup>
 	
-  <Target Name="NPM Install" AfterTargets="PreBuildEvent">
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="npm install" />
   </Target>
 	
-  <Target Name="NPM Build" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="npm run build" />
   </Target>
 	
-  <ItemGroup>
-    <ProjectReference Include="..\..\VegaDotNet\Vega.Embed\Vega.Embed.csproj" />
-  </ItemGroup>
 
 </Project>

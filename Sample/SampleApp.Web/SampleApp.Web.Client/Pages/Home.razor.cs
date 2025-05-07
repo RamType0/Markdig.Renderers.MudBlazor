@@ -10,7 +10,7 @@ partial class Home
 {
     static MarkdownPipeline MarkdownPipeline { get; } = new MarkdownPipelineBuilder().UseAdvancedExtensions().UseMudBlazor().UseVegaEmbed().UseKatex().Build();
     static readonly string markdownText = """
-### Markdig.Renderers.RazorComponent Sample App
+### Sample App
 
 **Welcome to sample app!**
 
@@ -24,7 +24,7 @@ This page demonstrates SSR with this library.
 
 SSR is also supported for
 
-$KaTeX math inlines$.
+$KaTeX math inlines$, and Vega, Vega-Lite charts.
 
 ```vegalite
 
@@ -45,6 +45,8 @@ $KaTeX math inlines$.
   }
 }
 ```
+
+But please care, we could **NOT** handle JS error on SSR!
 
 """;
 }
