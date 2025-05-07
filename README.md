@@ -14,11 +14,7 @@ Add this to `<head>` element.
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
 ```
-Also, you need to add this to bottom of `<body>` element.
 
-```html
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
-```
 ### Add `KatexExtension` to `MarkdownPipelineBuilder`
 ```C#
 using Markdig.Renderers.RazorComponent.Katex;
@@ -30,18 +26,6 @@ pipelineBuilder.UseKatex();
 
 If you want to render Vega and Vega-Lite charts, you need to do following steps.
 
-#### [Install Vega-Embed](https://github.com/vega/vega-embed?tab=readme-ov-file#directly-in-the-browser) in your app
-
-Add this to bottom of `<body>` element.
-
-```html
-<!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/vega@[VERSION]"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@[VERSION]"></script>
-    <!-- Import vega-embed -->
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@[VERSION]"></script>
-
-```
 
 #### Add `VegaEmbedExtension` to `MarkdownPipelineBuilder`
 ```C#
