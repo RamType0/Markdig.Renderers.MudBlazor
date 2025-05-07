@@ -6,7 +6,7 @@ await esbuild.build({
     outbase: "./",
     outdir: "./",
     bundle: true,
-    minify: false,
+    minify: true,
     sourcemap: true,
     format:"esm",
     platform: "browser",

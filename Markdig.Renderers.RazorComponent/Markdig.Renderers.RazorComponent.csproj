@@ -13,7 +13,7 @@
 	<Description>Markdown renderers for Blazor.</Description>
     <PackageTags>aspnetcore, components, Blazor, Markdown, CommonMark, md</PackageTags>
     <Copyright>© RamType0</Copyright>
-	<VersionPrefix>0.10.0</VersionPrefix>
+	<VersionPrefix>0.10.2</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,7 +30,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Vega.Embed" Version="0.3.1" />
+    <PackageReference Include="Vega.Embed" Version="0.3.2" />
   </ItemGroup>
 
   <ItemGroup>
