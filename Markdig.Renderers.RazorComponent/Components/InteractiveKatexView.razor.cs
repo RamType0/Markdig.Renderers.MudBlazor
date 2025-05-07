@@ -18,7 +18,7 @@ partial class InteractiveKatexView : IAsyncDisposable
     protected override void OnInitialized()
     {
         moduleTask = new(() => JsRuntime.InvokeAsync<IJSObjectReference>(
-                "import", "./_content/RamType0.Markdig.Renderers.RazorComponent/Components/InteractiveKatexView.razor.js").AsTask());
+                "import", "./_content/RamType0.Markdig.Renderers.RazorComponent/lib/katex.js").AsTask());
     }
     protected override async Task OnParametersSetAsync()
     {

@@ -6,6 +6,7 @@
     "moduleResolution": "bundler",
     "skipLibCheck": true,
     "strict": true,
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "sourceMap": true
   }
 }

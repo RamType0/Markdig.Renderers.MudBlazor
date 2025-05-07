@@ -2,7 +2,7 @@
 import pkg from './package.json' assert { type: 'json' }
 
 await esbuild.build({
-    entryPoints: ["./wwwroot/**/*.ts", "**/*.razor.ts"],
+    entryPoints: ["./wwwroot/lib/**/*.ts"],
     outbase: "./",
     outdir: "./",
     bundle: true,
