@@ -14,16 +14,22 @@ partial class InteractiveKatexView : IAsyncDisposable
 
     Lazy<Task<IJSObjectReference>> moduleTask = null!;
 
+    TaskCompletionSource firstRenderTcs = new();
+
     SemaphoreSlim semaphore = new(1);
     protected override void OnInitialized()
     {
+        if (!RendererInfo.IsInteractive)
+        {
+            throw new InvalidOperationException($"{nameof(InteractiveKatexView)} must be used in interactive platform.");
+        }
         moduleTask = new(() => JsRuntime.InvokeAsync<IJSObjectReference>(
                 "import", "./_content/RamType0.Markdig.Renderers.RazorComponent.Katex/lib/katex.js").AsTask());
     }
 
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnParametersSetAsync()
     {
+        await firstRenderTcs.Task;
         await semaphore.WaitAsync();
         try
         {
@@ -36,8 +42,14 @@ partial class InteractiveKatexView : IAsyncDisposable
         {
             semaphore.Release();
         }
-        
-    } 
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            firstRenderTcs.SetResult();
+        }
+    }
 
     public async ValueTask DisposeAsync()
     {

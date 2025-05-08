@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Kroki.DependencyInjection" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.*" />
     <PackageReference Include="MudBlazor" Version="8.*" />
   </ItemGroup>
