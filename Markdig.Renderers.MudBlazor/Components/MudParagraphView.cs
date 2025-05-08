@@ -16,7 +16,7 @@ public class MudParagraphView : ComponentBase
     public required ParagraphBlock Paragraph { get; set; }
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        using(Renderer.UseBuilder(builder))
+        using (Renderer.UseBuilder(builder))
         {
             if (ImplicitParagraph)
             {
@@ -30,7 +30,7 @@ public class MudParagraphView : ComponentBase
                     builder.AddComponentParameter(2, nameof(MudText.Typo), Typo.body1);
                     builder.AddComponentParameter(3, nameof(MudText.ChildContent), (RenderFragment)(builder =>
                     {
-                        using(Renderer.UseBuilder(builder))
+                        using (Renderer.UseBuilder(builder))
                         {
                             Renderer.WriteLeafInline(0, Paragraph);
                         }

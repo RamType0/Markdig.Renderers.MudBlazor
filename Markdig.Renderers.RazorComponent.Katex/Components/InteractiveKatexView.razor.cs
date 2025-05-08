@@ -1,8 +1,7 @@
-﻿using Markdig.Renderers.RazorComponent.Katex;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Markdig.Renderers.RazorComponent.Components;
+namespace Markdig.Renderers.RazorComponent.Katex.Components;
 partial class InteractiveKatexView : IAsyncDisposable
 {
     [Inject]
@@ -42,7 +41,7 @@ partial class InteractiveKatexView : IAsyncDisposable
 
                 throw;
             }
-            
+
         }
     }
 }

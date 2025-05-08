@@ -1,6 +1,6 @@
 ﻿using Markdig.Extensions.Mathematics;
 using Markdig.Renderers.Html;
-using Markdig.Renderers.RazorComponent.Components;
+using Markdig.Renderers.RazorComponent.Katex.Components;
 
 namespace Markdig.Renderers.RazorComponent.Katex;
 
@@ -29,7 +29,7 @@ public class KatexMathBlockRenderer : RazorComponentObjectRenderer<MathBlock>
                 builder.CloseComponent();
             }
             builder.CloseElement();
-            
+
         }
         builder.CloseRegion();
     }

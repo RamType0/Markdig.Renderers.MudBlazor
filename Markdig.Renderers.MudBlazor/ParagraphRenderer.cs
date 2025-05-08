@@ -1,9 +1,6 @@
-﻿using Markdig.Renderers.Html;
-using Markdig.Renderers.MudBlazor.Components;
+﻿using Markdig.Renderers.MudBlazor.Components;
 using Markdig.Renderers.RazorComponent;
 using Markdig.Syntax;
-using Microsoft.AspNetCore.Components;
-using MudBlazor;
 
 namespace Markdig.Renderers.MudBlazor;
 

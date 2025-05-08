@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -10,35 +10,29 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	<RepositoryUrl>https://github.com/RamType0/Markdig.Renderers.MudBlazor</RepositoryUrl>
-	<Description>Markdown renderers for Blazor.</Description>
+	<Description>Katex integration for Markdown renderers for Blazor.</Description>
     <PackageTags>aspnetcore, components, Blazor, Markdown, CommonMark, md</PackageTags>
     <Copyright>© RamType0</Copyright>
 	<VersionPrefix>0.10.3</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\p0211\.nuget\packages\vega.embed\0.3.3\contentFiles\any\net9.0\esbuild.config.mjs" />
+    <Content Remove="C:\Users\p0211\.nuget\packages\vega.embed\0.3.3\contentFiles\any\net9.0\esbuild.config.mjs.map" />
+  </ItemGroup>
+
+
+  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ColorCode.HTML" Version="2.0.15" />
-    <PackageReference Include="Kroki" Version="2.0.1" />
-    <PackageReference Include="Kroki.DependencyInjection" Version="2.0.1" />
-    <PackageReference Include="Markdig" Version="0.41.1" />
-	<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
+    <PackageReference Include="Vega.Embed" Version="0.3.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <ProjectReference Include="..\Markdig.Renderers.RazorComponent\Markdig.Renderers.RazorComponent.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-	
-	
 
 </Project>

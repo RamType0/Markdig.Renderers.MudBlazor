@@ -1,5 +1,5 @@
 ﻿using Markdig.Extensions.Mathematics;
-using Markdig.Renderers.RazorComponent.Components;
+using Markdig.Renderers.RazorComponent.Katex.Components;
 
 namespace Markdig.Renderers.RazorComponent.Katex;
 

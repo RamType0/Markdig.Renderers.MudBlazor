@@ -1,6 +1,5 @@
 ﻿using Markdig.Extensions.Tables;
 using Markdig.Renderers.Html;
-using Microsoft.AspNetCore.Components;
 using System.Diagnostics;
 
 namespace Markdig.Renderers.RazorComponent;
@@ -122,7 +121,7 @@ public class TableRenderer : RazorComponentObjectRenderer<Table>
 
                 }
                 builder.AddAttributes(3, cell.TryGetAttributes());
-                if(cell.Count == 1)
+                if (cell.Count == 1)
                 {
                     builder.AddImplicitParagraph(4, true, true, builder =>
                     {

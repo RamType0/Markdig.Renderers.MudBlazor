@@ -18,7 +18,7 @@ public class HeadingRenderer : RazorComponentObjectRenderer<HeadingBlock>
                 builder.AddAttributesToMudComponent(1, obj.TryGetAttributes());
                 builder.AddComponentParameter(2, nameof(MudLink.ChildContent), (RenderFragment)(builder =>
                 {
-                    using(renderer.UseBuilder(builder))
+                    using (renderer.UseBuilder(builder))
                     {
                         renderer.WriteLeafInline(0, obj);
                     }

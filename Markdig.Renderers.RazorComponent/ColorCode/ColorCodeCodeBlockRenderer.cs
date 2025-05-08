@@ -1,8 +1,7 @@
 ﻿using ColorCode;
 using Markdig.Renderers.Html;
-using Markdig.Renderers.RazorComponent.Components;
 using Markdig.Syntax;
-
+using Markdig.Renderers.RazorComponent.Components;
 namespace Markdig.Renderers.RazorComponent.ColorCode;
 
 public class ColorCodeCodeBlockRenderer : ICodeBlockChildRenderer
@@ -14,7 +13,7 @@ public class ColorCodeCodeBlockRenderer : ICodeBlockChildRenderer
         var languageId = (codeBlock as FencedCodeBlock)?.Info;
         var language = string.IsNullOrEmpty(languageId) ? null : Languages.FindById(languageId);
 
-        if(language is null)
+        if (language is null)
         {
             return false;
         }
@@ -40,6 +39,6 @@ public class ColorCodeCodeBlockRenderer : ICodeBlockChildRenderer
             return true;
         }
 
-            
+
     }
 }

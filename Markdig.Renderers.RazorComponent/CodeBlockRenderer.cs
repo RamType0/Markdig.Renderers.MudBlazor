@@ -2,8 +2,6 @@
 using Markdig.Renderers.Html;
 using Markdig.Renderers.RazorComponent.ColorCode;
 using Markdig.Renderers.RazorComponent.Components;
-using Markdig.Renderers.RazorComponent.Vega;
-using Markdig.Renderers.RazorComponent.Vega.Embed;
 using Markdig.Syntax;
 
 namespace Markdig.Renderers.RazorComponent;

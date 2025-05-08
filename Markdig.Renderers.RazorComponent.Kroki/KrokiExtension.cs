@@ -1,10 +1,12 @@
-﻿namespace Markdig.Renderers.RazorComponent.Vega.Embed;
+﻿using Markdig.Renderers.RazorComponent.ColorCode;
 
-public class VegaEmbedExtension : IMarkdownExtension
+namespace Markdig.Renderers.RazorComponent.Kroki;
+
+public class KrokiExtension : IMarkdownExtension
 {
     public void Setup(MarkdownPipelineBuilder pipeline)
     {
-        
+
     }
 
     public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
@@ -14,10 +16,9 @@ public class VegaEmbedExtension : IMarkdownExtension
             return;
         }
         var codeBlockRenderer = renderer.ObjectRenderers.FindExact<CodeBlockRenderer>() ?? throw new InvalidOperationException($"Could not find {nameof(CodeBlockRenderer)}.");
-        if(!codeBlockRenderer.ChildRenderers.Contains<VegaEmbedCodeBlockRenderer>())
+        if (!codeBlockRenderer.ChildRenderers.Contains<KrokiCodeBlockRenderer>())
         {
-            codeBlockRenderer.ChildRenderers.Insert(0, new VegaEmbedCodeBlockRenderer());
+            codeBlockRenderer.ChildRenderers.InsertBefore<ColorCodeCodeBlockRenderer>(new KrokiCodeBlockRenderer());
         }
-        
     }
 }

@@ -1,12 +1,6 @@
 ﻿using Markdig.Renderers.Html;
-using Markdig.Renderers.RazorComponent.Components;
+using Markdig.Renderers.RazorComponent.Vega.Embed.Components;
 using Markdig.Syntax;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vega.Embed;
 
 namespace Markdig.Renderers.RazorComponent.Vega.Embed;
 internal class VegaEmbedCodeBlockRenderer : ICodeBlockChildRenderer

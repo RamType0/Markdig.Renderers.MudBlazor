@@ -15,6 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Markdig.Renderers.MudBlazor\Markdig.Renderers.MudBlazor.csproj" />
+    <ProjectReference Include="..\..\..\Markdig.Renderers.RazorComponent.Katex\Markdig.Renderers.RazorComponent.Katex.csproj" />
+    <ProjectReference Include="..\..\..\Markdig.Renderers.RazorComponent.Kroki\Markdig.Renderers.RazorComponent.Kroki.csproj" />
+    <ProjectReference Include="..\..\..\Markdig.Renderers.RazorComponent.Vega.Embed\Markdig.Renderers.RazorComponent.Vega.Embed.csproj" />
   </ItemGroup>
 
 </Project>

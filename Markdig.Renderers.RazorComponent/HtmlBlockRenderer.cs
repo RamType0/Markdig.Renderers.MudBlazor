@@ -1,5 +1,4 @@
 ﻿using Markdig.Syntax;
-using System.Runtime.CompilerServices;
 
 namespace Markdig.Renderers.RazorComponent;
 

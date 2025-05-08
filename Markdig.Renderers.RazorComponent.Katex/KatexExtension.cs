@@ -4,7 +4,7 @@ public class KatexExtension : IMarkdownExtension
 {
     public void Setup(MarkdownPipelineBuilder pipeline)
     {
-        
+
     }
 
     public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
@@ -18,7 +18,7 @@ public class KatexExtension : IMarkdownExtension
         {
             razorComponentRenderer.ObjectRenderers.Insert(0, new KatexMathInlineRenderer());
         }
-        if(!razorComponentRenderer.ObjectRenderers.Contains<KatexMathBlockRenderer>())
+        if (!razorComponentRenderer.ObjectRenderers.Contains<KatexMathBlockRenderer>())
         {
             razorComponentRenderer.ObjectRenderers.Insert(0, new KatexMathBlockRenderer());
         }

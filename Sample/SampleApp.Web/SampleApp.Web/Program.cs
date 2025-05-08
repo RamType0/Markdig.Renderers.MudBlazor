@@ -1,11 +1,5 @@
-using Kroki;
-using Kroki.DependencyInjection;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using MudBlazor.Services;
-using SampleApp.Web.Client.Pages;
 using SampleApp.Web.Components;
 using Yarp.ReverseProxy.Forwarder;
 using Yarp.ReverseProxy.Transforms;
@@ -29,7 +23,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddKrokiHttpRequestFactory().Configure<IHttpContextAccessor>((options, httpContextAccessor) =>
 {
     var request = httpContextAccessor.HttpContext?.Request ?? throw new InvalidOperationException();
-    
+
     options.Endpoint = new($"{request.Scheme}://{request.Host}{request.PathBase}/Kroki/");
 });
 

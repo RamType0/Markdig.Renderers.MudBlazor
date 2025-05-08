@@ -1,6 +1,4 @@
-﻿@using Markdig.Renderers.RazorComponent.Katex
-
-@if (this.RendererInfo.IsInteractive)
+﻿@if (this.RendererInfo.IsInteractive)
 {
     <InteractiveKatexView TexExpression="@TexExpression" Options="@Options"/>
 }

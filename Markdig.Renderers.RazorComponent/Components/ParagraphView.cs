@@ -15,7 +15,7 @@ public class ParagraphView : ComponentBase
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        using(Renderer.UseBuilder(builder))
+        using (Renderer.UseBuilder(builder))
         {
             if (ImplicitParagraph)
             {

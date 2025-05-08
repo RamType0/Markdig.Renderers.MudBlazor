@@ -1,6 +1,6 @@
 ﻿using Kroki;
 using Markdig.Renderers.Html;
-using Markdig.Renderers.RazorComponent.Components;
+using Markdig.Renderers.RazorComponent.Kroki.Components;
 using Markdig.Syntax;
 
 namespace Markdig.Renderers.RazorComponent.Kroki;

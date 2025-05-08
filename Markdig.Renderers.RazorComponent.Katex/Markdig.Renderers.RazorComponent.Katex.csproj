@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -10,35 +10,42 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	<RepositoryUrl>https://github.com/RamType0/Markdig.Renderers.MudBlazor</RepositoryUrl>
-	<Description>Markdown renderers for Blazor.</Description>
+	<Description>Katex integration for Markdown renderers for Blazor.</Description>
     <PackageTags>aspnetcore, components, Blazor, Markdown, CommonMark, md</PackageTags>
     <Copyright>© RamType0</Copyright>
 	<VersionPrefix>0.10.3</VersionPrefix>
   </PropertyGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ColorCode.HTML" Version="2.0.15" />
-    <PackageReference Include="Kroki" Version="2.0.1" />
-    <PackageReference Include="Kroki.DependencyInjection" Version="2.0.1" />
-    <PackageReference Include="Markdig" Version="0.41.1" />
-	<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.8.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
-
+	
   <ItemGroup>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+		
+    <Content Remove="package*.json;tsconfig.json" />
+    <TypeScriptCompile Include="package*.json;tsconfig.json" />
+    <ProjectReference Include="..\Markdig.Renderers.RazorComponent\Markdig.Renderers.RazorComponent.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="npm install" />
+  </Target>
 	
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="npm run build" />
+  </Target>
 	
-
 </Project>
