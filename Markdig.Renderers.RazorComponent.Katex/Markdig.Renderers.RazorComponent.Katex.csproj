@@ -13,7 +13,7 @@
 	<Description>Katex integration for Markdown renderers for Blazor.</Description>
     <PackageTags>aspnetcore, components, Blazor, Markdown, CommonMark, md</PackageTags>
     <Copyright>© RamType0</Copyright>
-	<VersionPrefix>0.10.3</VersionPrefix>
+	<VersionPrefix>0.11.0</VersionPrefix>
   </PropertyGroup>
 
 

@@ -13,7 +13,7 @@
 	<Description>Markdown renderers for Blazor.</Description>
     <PackageTags>aspnetcore, components, Blazor, Markdown, CommonMark, md</PackageTags>
     <Copyright>© RamType0</Copyright>
-	<VersionPrefix>0.10.3</VersionPrefix>
+	<VersionPrefix>0.11.0</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,8 +22,6 @@
 
   <ItemGroup>
     <PackageReference Include="ColorCode.HTML" Version="2.0.15" />
-    <PackageReference Include="Kroki" Version="2.0.1" />
-    <PackageReference Include="Kroki.DependencyInjection" Version="2.0.1" />
     <PackageReference Include="Markdig" Version="0.41.1" />
 	<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
   </ItemGroup>
