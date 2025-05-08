@@ -14,34 +14,54 @@ partial class InteractiveKatexView : IAsyncDisposable
 
     Lazy<Task<IJSObjectReference>> moduleTask = null!;
 
+    SemaphoreSlim semaphore = new(1);
     protected override void OnInitialized()
     {
         moduleTask = new(() => JsRuntime.InvokeAsync<IJSObjectReference>(
                 "import", "./_content/RamType0.Markdig.Renderers.RazorComponent.Katex/lib/katex.js").AsTask());
     }
-    protected override async Task OnParametersSetAsync()
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        renderedExpression = null;
-        var module = await moduleTask.Value;
-        var html = await module.InvokeAsync<string>("katex.renderToString", TexExpression, Options);
-        renderedExpression = new(html);
-    }
+        await semaphore.WaitAsync();
+        try
+        {
+            renderedExpression = null;
+            var module = await moduleTask.Value;
+            var html = await module.InvokeAsync<string>("katex.renderToString", TexExpression, Options);
+            renderedExpression = new(html);
+        }
+        finally
+        {
+            semaphore.Release();
+        }
+        
+    } 
 
     public async ValueTask DisposeAsync()
     {
-        if (moduleTask.IsValueCreated)
+        await semaphore.WaitAsync();
+        try
         {
-            try
+            if (moduleTask.IsValueCreated)
             {
-                var module = await moduleTask.Value;
-                await module.DisposeAsync();
-            }
-            catch (JSDisconnectedException)
-            {
+                try
+                {
+                    var module = await moduleTask.Value;
+                    await module.DisposeAsync();
+                }
+                catch (JSDisconnectedException)
+                {
 
-                throw;
-            }
+                }
 
+            }
+        }
+        finally
+        {
+            semaphore.Release();
+            semaphore.Dispose();
         }
     }
 }
