@@ -1,7 +1,8 @@
-﻿using Markdig.Syntax;
+﻿using Markdig.Renderers.RazorComponent;
+using Markdig.Syntax;
 using Microsoft.AspNetCore.Components;
 
-namespace Markdig.Renderers.RazorComponent;
+namespace Markdig;
 
 public static class RazorComponentRendererExtensions
 {

@@ -1,6 +1,9 @@
-﻿namespace Markdig.Renderers.MudBlazor;
+﻿using Markdig.Renderers.MudBlazor;
 
-public static class MarkdownExtensions
+namespace Markdig;
+
+public static class MudBlazorMarkdownExtensions
+
 {
     public static MarkdownPipelineBuilder UseMudBlazor(this MarkdownPipelineBuilder pipeline)
     {

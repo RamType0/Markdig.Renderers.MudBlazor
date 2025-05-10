@@ -1,6 +1,8 @@
-﻿namespace Markdig.Renderers.RazorComponent.Katex;
+﻿using Markdig.Renderers.RazorComponent.Katex;
 
-public static class KatexExtensions
+namespace Markdig;
+
+public static class KatexMarkdownExtensions
 {
     public static MarkdownPipelineBuilder UseKatex(this MarkdownPipelineBuilder pipeline)
     {

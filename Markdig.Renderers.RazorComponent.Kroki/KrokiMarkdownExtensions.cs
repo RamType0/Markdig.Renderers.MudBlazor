@@ -1,6 +1,8 @@
-﻿namespace Markdig.Renderers.RazorComponent.Kroki;
+﻿using Markdig.Renderers.RazorComponent.Kroki;
 
-public static class KrokiExtensions
+namespace Markdig;
+
+public static class KrokiMarkdownExtensions
 {
     public static MarkdownPipelineBuilder UseKroki(this MarkdownPipelineBuilder pipeline)
     {

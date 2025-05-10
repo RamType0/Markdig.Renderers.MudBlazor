@@ -1,7 +1,4 @@
 ﻿using Markdig;
-using Markdig.Renderers.MudBlazor;
-using Markdig.Renderers.RazorComponent.Katex;
-using Markdig.Renderers.RazorComponent.Vega.Embed;
 
 namespace SampleApp.Web.Client.Pages;
 

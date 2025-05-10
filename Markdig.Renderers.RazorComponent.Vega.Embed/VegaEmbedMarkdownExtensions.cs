@@ -1,6 +1,8 @@
-﻿namespace Markdig.Renderers.RazorComponent.Vega.Embed;
+﻿using Markdig.Renderers.RazorComponent.Vega.Embed;
 
-public static class VegaEmbedExtensions
+namespace Markdig;
+
+public static class VegaEmbedMarkdownExtensions
 {
     public static MarkdownPipelineBuilder UseVegaEmbed(this MarkdownPipelineBuilder pipeline)
     {
