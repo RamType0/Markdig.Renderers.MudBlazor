@@ -1,0 +1,17 @@
+﻿@inherits RazorComponentRendererTestContext
+
+@code {
+    [Theory]
+    [InlineData("Hello, World!")]
+    [InlineData("Supporting SSR on Blazor is really troublesome...")]
+    public void LiteralInlineRendersCorrectly(string content)
+    {
+        var document = Markdown.Parse($"{content}");
+        var rendered = Render(document.ToRenderFragment());
+        rendered.MarkupMatches(
+            @<p>
+                @content
+            </p>
+        );
+    }
+}

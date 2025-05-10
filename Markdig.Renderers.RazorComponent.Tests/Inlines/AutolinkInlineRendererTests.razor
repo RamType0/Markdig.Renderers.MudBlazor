@@ -1,0 +1,33 @@
+﻿@inherits RazorComponentRendererTestContext
+
+@code {
+    [Theory]
+    [InlineData("http://foo.bar.baz")]
+    [InlineData("http://foo.bar.baz/test?q=hello&id=22&boolean")]
+    [InlineData("irc://foo.bar:2233/baz")]
+    public void CommonLinkRendersCorrectly(string url)
+    {
+        var document = Markdown.Parse($"<{url}>");
+        var rendered = Render(document.ToRenderFragment());
+        rendered.MarkupMatches(
+            @<p>
+                <a href="@url">@url</a>
+            </p>
+        );
+    }
+    [Theory]
+    [InlineData("foo@bar.example.com")]
+    [InlineData("foo+special@Bar.baz-bar0.com")]
+    public void EmailLinkRendersCorrectly(string email)
+    {
+        var document = Markdown.Parse($"<{email}>");
+
+        var url = $"mailto:{email}";
+        var rendered = Render(document.ToRenderFragment());
+        rendered.MarkupMatches(
+            @<p>
+                <a href="@url">@email</a>
+            </p>
+        );
+    }
+}

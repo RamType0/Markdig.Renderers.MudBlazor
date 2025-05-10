@@ -1,0 +1,19 @@
+﻿@inherits RazorComponentRendererTestContext
+
+@code {
+
+    // https://github.com/dotnet/razor/issues/7084
+    // Raw string literals are not supported in .razor file
+    [Theory]
+    public partial void HardLineBreakRendersCorrectly(string content)
+    {
+        var document = Markdown.Parse($"{content}");
+        var rendered = Render(document.ToRenderFragment());
+        rendered.MarkupMatches(
+            @<p>
+                foo<br />
+                baz
+            </p>
+        );
+    }
+}

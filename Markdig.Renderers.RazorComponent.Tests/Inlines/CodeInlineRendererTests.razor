@@ -1,0 +1,20 @@
+﻿@inherits RazorComponentRendererTestContext
+
+@code {
+    [Theory]
+    [InlineData("int")]
+    [InlineData("List<T>")]
+    [InlineData("T[]")]
+    public void CodeInlineRendersCorrectly(string content)
+    {
+        var document = Markdown.Parse($"`{content}`");
+        var rendered = Render(document.ToRenderFragment());
+        rendered.MarkupMatches(
+            @<p>
+                <code>
+                    @content
+                </code>
+            </p>
+        );
+    }
+}

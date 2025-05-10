@@ -1,0 +1,30 @@
+﻿@inherits RazorComponentRendererTestContext
+
+@code {
+    [Theory]
+    [InlineData("[link](/uri \"title\")", "link", "/uri", "title")]
+    [InlineData("[link](/uri)", "link", "/uri", null, Skip = "https://github.com/xoofx/markdig/issues/872")]
+    public void CommonLinkRendersCorrectly(string markdown, string content, string url, string? title)
+    {
+        var document = Markdown.Parse(markdown);
+        var rendered = Render(document.ToRenderFragment());
+        rendered.MarkupMatches(
+            @<p>
+                <a href="@url" title="@title">@content</a>
+            </p>
+        );
+    }
+    [Theory]
+    [InlineData("![foo](/url \"title\")", "foo", "/url", "title")]
+    [InlineData("![foo](train.jpg)", "foo", "train.jpg", null, Skip = "https://github.com/xoofx/markdig/issues/872")]
+    public void ImageLinkRendersCorrectly(string markdown, string alt, string url, string? title)
+    {
+        var document = Markdown.Parse(markdown);
+        var rendered = Render(document.ToRenderFragment());
+        rendered.MarkupMatches(
+            @<p>
+        <img src="@url" alt="@alt" title="@title" />
+            </p>
+        );
+    }
+}
