@@ -1,7 +1,7 @@
 ﻿using ColorCode;
 using Markdig.Renderers.Html;
-using Markdig.Syntax;
 using Markdig.Renderers.RazorComponent.Components;
+using Markdig.Syntax;
 namespace Markdig.Renderers.RazorComponent.ColorCode;
 
 public class ColorCodeCodeBlockRenderer : ICodeBlockChildRenderer
