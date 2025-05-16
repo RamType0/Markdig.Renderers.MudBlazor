@@ -35,8 +35,8 @@
       <PackagePath>\</PackagePath>
     </None>
 		
-    <Content Remove="package*.json;tsconfig.json" />
-    <TypeScriptCompile Include="package*.json;tsconfig.json" />
+	<Content Update="package*.json;tsconfig.json" Pack="false" />
+	<Content Include="esbuild.config.mjs;esbuild.config.mjs.map" Pack="false" />
     <ProjectReference Include="..\Markdig.Renderers.RazorComponent\Markdig.Renderers.RazorComponent.csproj" />
   </ItemGroup>
 
