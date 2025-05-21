@@ -37,4 +37,8 @@
     <ProjectReference Include="..\Markdig.Renderers.RazorComponent\Markdig.Renderers.RazorComponent.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
