@@ -17,18 +17,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="C:\Users\p0211\.nuget\packages\vega.embed\0.3.3\contentFiles\any\net9.0\esbuild.config.mjs" />
-    <Content Remove="C:\Users\p0211\.nuget\packages\vega.embed\0.3.3\contentFiles\any\net9.0\esbuild.config.mjs.map" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
-    <PackageReference Include="Vega.Embed" Version="0.3.3" />
+    <PackageReference Include="Vega.Embed" Version="0.3.4" />
   </ItemGroup>
 	
   <ItemGroup>
