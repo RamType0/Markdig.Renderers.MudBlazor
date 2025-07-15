@@ -1,4 +1,5 @@
 ﻿using Markdig.Renderers.Html;
+using Markdig.Renderers.RazorComponent.Components;
 using Markdig.Syntax.Inlines;
 using System.Runtime.CompilerServices;
 
@@ -16,45 +17,12 @@ public class LinkInlineRenderer : RazorComponentObjectRenderer<LinkInline>
         var builder = renderer.Builder;
         builder.OpenRegion(0);
         {
-            var url = link.GetDynamicUrl?.Invoke() ?? link.Url;
-            if (link.IsImage)
+            builder.OpenComponent<LinkInlineView>(0);
             {
-                builder.OpenRegion(0);
-                {
-                    builder.OpenElement(0, "img");
-                    {
-                        builder.AddAttribute(1, "src", url);
-                        builder.AddAttributes(2, link.TryGetAttributes());
-                        if (GetAlt(link) is { } alt)
-                        {
-                            builder.AddAttribute(3, "alt", alt);
-                        }
-                        builder.AddAttribute(4, "title", link.Title);
-                    }
-                    builder.CloseElement();
-                }
-                builder.CloseRegion();
+                builder.AddAttribute(1, nameof(LinkInlineView.Link), link);
+                builder.AddAttribute(2, nameof(LinkInlineView.Rel), Rel);
             }
-            else
-            {
-                builder.OpenRegion(1);
-                {
-                    builder.OpenElement(0, "a");
-                    {
-                        builder.AddAttribute(1, "href", url);
-                        builder.AddAttributes(2, link.TryGetAttributes());
-                        builder.AddAttribute(3, "title", link.Title);
-
-                        if (!string.IsNullOrWhiteSpace(Rel))
-                        {
-                            builder.AddAttribute(4, "rel", Rel);
-                        }
-                        renderer.WriteChildren(5, link);
-                    }
-                    builder.CloseElement();
-                }
-                builder.CloseRegion();
-            }
+            builder.CloseComponent();
         }
         builder.CloseRegion();
     }
