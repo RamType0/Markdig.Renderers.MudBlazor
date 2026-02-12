@@ -1,0 +1,48 @@
+name: Publish package
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+
+jobs:
+  get-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+    steps:
+      - name: Get version
+        id: get-version
+        run: |
+          version="${{ github.ref_name }}"
+          echo "version=${version#v}" >> $GITHUB_OUTPUT
+  
+  publish:
+    needs: get-version
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: '10.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Pack NuGet package
+      run: dotnet pack --no-build --configuration Release --output ./nupkgs -p:PackageVersion=${{ needs.get-version.outputs.version }}
+
+    - name: NuGet Login
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: Ram.Type-0
+
+    - name: Publish NuGet package
+      run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

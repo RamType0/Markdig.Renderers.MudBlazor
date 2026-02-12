@@ -1,0 +1,37 @@
+name: Run tests
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+  pull_request:
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: '10.x'
+        
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Execute unit tests
+      run: dotnet test --no-build --logger trx --results-directory "TestResults"
+      
+    - name: Upload test results
+      uses: actions/upload-artifact@v6
+      with:
+        name: dotnet-results
+        path: TestResults
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
