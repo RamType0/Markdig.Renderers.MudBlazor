@@ -15,6 +15,7 @@ builder.AddProject<Projects.SampleApp_Web>("web")
     .WithReference(kroki)
     .WaitFor(kroki)
     .WithReference(phi4)
-    .WaitFor(phi4);
+    //.WaitFor(phi4)
+    ;
 
 builder.Build().Run();
