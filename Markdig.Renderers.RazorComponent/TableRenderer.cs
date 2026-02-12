@@ -29,28 +29,40 @@ public class TableRenderer : RazorComponentObjectRenderer<Table>
         {
             builder.OpenRegion(0);
             {
+                var hasHeader = false;
                 foreach (var rowObj in table)
                 {
                     var row = (TableRow)rowObj;
                     if (row.IsHeader)
                     {
-                        builder.OpenElement(0, "thead");
-                        {
-                            builder.OpenElement(1, "tr");
-                            {
-                                builder.AddAttributes(2, row.TryGetAttributes());
-                                for (int i = 0; i < row.Count; i++)
-                                {
-                                    RenderCell(renderer, 3, "th", row, i);
-                                }
-                            }
-                            builder.CloseElement();
-
-                        }
-                        builder.CloseElement();
+                        hasHeader = true;
                         break;
                     }
                 }
+                if (hasHeader)
+                {
+                    builder.OpenElement(0, "thead");
+                    {
+                        foreach (var rowObj in table)
+                        {
+                            var row = (TableRow)rowObj;
+                            if (row.IsHeader)
+                            {
+                                builder.OpenElement(1, "tr");
+                                {
+                                    builder.AddAttributes(2, row.TryGetAttributes());
+                                    for (int i = 0; i < row.Count; i++)
+                                    {
+                                        RenderCell(renderer, 3, "th", row, i);
+                                    }
+                                }
+                                builder.CloseElement();
+                            }
+                        }
+                    }
+                    builder.CloseElement();
+                }
+                
             }
             builder.CloseRegion();
             builder.OpenRegion(1);
