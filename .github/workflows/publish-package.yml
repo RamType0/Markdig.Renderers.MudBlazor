@@ -1,5 +1,8 @@
 name: Publish package
 
+permissions:
+  id-token: write
+  
 on:
   push:
     tags:
@@ -48,4 +51,4 @@ jobs:
         user: Ram.Type-0
 
     - name: Publish NuGet package
-      run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ./nupkgs/RamType0.Markdig.Renderers.*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
