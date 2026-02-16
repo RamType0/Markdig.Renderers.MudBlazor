@@ -39,7 +39,8 @@
   </ItemGroup>
 	
   <Target Name="PostBuild" AfterTargets="CompileTypeScript">
-    <Exec Command="npm run build" />
+	<Exec Command="npm install" />
+	<Exec Command="npm run build" />
   </Target>
 	
 </Project>
