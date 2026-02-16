@@ -21,11 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Katex" Version="0.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.3" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.9.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 	
   <ItemGroup>
@@ -34,13 +31,11 @@
       <PackagePath>\</PackagePath>
     </None>
 		
-	<Content Update="package*.json;tsconfig.json" Pack="false" />
     <ProjectReference Include="..\Markdig.Renderers.RazorComponent\Markdig.Renderers.RazorComponent.csproj" />
   </ItemGroup>
 	
-  <Target Name="PostBuild" AfterTargets="CompileTypeScript">
-	<Exec Command="npm install" />
-	<Exec Command="npm run build" />
-  </Target>
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
 	
 </Project>
