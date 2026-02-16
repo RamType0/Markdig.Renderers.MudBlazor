@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.8.3">
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.9.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -35,15 +35,10 @@
     </None>
 		
 	<Content Update="package*.json;tsconfig.json" Pack="false" />
-	<Content Include="esbuild.config.mjs;esbuild.config.mjs.map" Pack="false" />
     <ProjectReference Include="..\Markdig.Renderers.RazorComponent\Markdig.Renderers.RazorComponent.csproj" />
   </ItemGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="npm install" />
-  </Target>
 	
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="CompileTypeScript">
     <Exec Command="npm run build" />
   </Target>
 	

@@ -7,6 +7,20 @@
     "skipLibCheck": true,
     "strict": true,
     "noEmitOnError": true,
-    "sourceMap": true
-  }
+    "sourceMap": true,
+    "paths": {
+      "/lib/*.js": [
+        "./wwwroot/lib/*.ts"
+      ],
+      "/*": [
+        "./*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "wwwroot/lib/*.ts",
+    "bin",
+    "obj"
+  ]
 }
