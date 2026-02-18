@@ -7,14 +7,6 @@
 ### [KaTeX](https://github.com/KaTeX/KaTeX) integration
 If you want to render `MathInline`, you need to do following steps.
 
-
-#### [Install KaTeX](https://katex.org/docs/browser) in your app
-
-Add this to `<head>` element. 
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
-```
-
 ### Add `KatexExtension` to `MarkdownPipelineBuilder`
 ```C#
 using Markdig.Renderers.RazorComponent.Katex;
