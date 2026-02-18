@@ -41,8 +41,8 @@ $KaTeX math inlines$, and Vega, Vega-Lite charts.
   }
 }
 ```
-
-But please care, we could **NOT** handle JS error on SSR!
+> [!WARNING]
+> We could **NOT** handle JS error on SSR!
 
 """;
 }

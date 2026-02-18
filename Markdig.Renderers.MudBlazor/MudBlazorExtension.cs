@@ -31,6 +31,8 @@ public class MudBlazorExtension : IMarkdownExtension
         razorComponentRenderer.ObjectRenderers.TryRemove<RazorComponent.Inlines.LinkInlineRenderer>();
         razorComponentRenderer.ObjectRenderers.AddIfNotAlready<LinkInlineRenderer>();
 
+        razorComponentRenderer.ObjectRenderers.Replace<RazorComponent.AlertBlockRenderer>(new AlertBlockRenderer());
+
         razorComponentRenderer.ObjectRenderers.TryRemove<RazorComponent.TableRenderer>();
         razorComponentRenderer.ObjectRenderers.AddIfNotAlready<TableRenderer>();
     }

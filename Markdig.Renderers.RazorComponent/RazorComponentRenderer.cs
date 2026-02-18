@@ -1,4 +1,5 @@
-﻿using Markdig.Renderers.RazorComponent.Inlines;
+﻿using Markdig.Extensions.Alerts;
+using Markdig.Renderers.RazorComponent.Inlines;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using Microsoft.AspNetCore.Components;
@@ -19,6 +20,7 @@ public class RazorComponentRenderer : RendererBase
         ObjectRenderers.Add(new HeadingRenderer());
         ObjectRenderers.Add(new HtmlBlockRenderer());
         ObjectRenderers.Add(new ParagraphRenderer());
+        ObjectRenderers.Add(new AlertBlockRenderer());
         ObjectRenderers.Add(new QuoteBlockRenderer());
         ObjectRenderers.Add(new ThematicBreakRenderer());
 
