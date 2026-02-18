@@ -20,6 +20,7 @@ public class RazorComponentRenderer : RendererBase
         ObjectRenderers.Add(new HeadingRenderer());
         ObjectRenderers.Add(new HtmlBlockRenderer());
         ObjectRenderers.Add(new ParagraphRenderer());
+        ObjectRenderers.Add(new AlertBlockRenderer());
         ObjectRenderers.Add(new QuoteBlockRenderer());
         ObjectRenderers.Add(new ThematicBreakRenderer());
 
@@ -32,8 +33,6 @@ public class RazorComponentRenderer : RendererBase
         ObjectRenderers.Add(new HtmlEntityInlineRenderer());
         ObjectRenderers.Add(new LinkInlineRenderer());
         ObjectRenderers.Add(new LiteralInlineRenderer());
-
-        ObjectRenderers.Add(new AlertBlockRenderer());
 
         ObjectRenderers.Add(new TableRenderer());
     }
